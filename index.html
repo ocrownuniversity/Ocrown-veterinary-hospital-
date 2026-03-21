@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>OCROWN Veterinary Hospital – Ibadan</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet"/>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -17,809 +17,777 @@
     messagingSenderId: "946404927243",
     appId: "1:946404927243:web:c0c873e6a3b5d0b18ea40e"
   };
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  window._db = db;
-  window._ref = ref;
-  window._push = push;
-  window._onValue = onValue;
-  window._update = update;
-  window._fbReady = true;
+  try {
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    window._db = db; window._ref = ref; window._push = push;
+    window._onValue = onValue; window._update = update; window._fbReady = true;
+  } catch(e) { console.warn('Firebase error:', e); }
 </script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; color: #333; background: #fff; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;color:#222;background:#fff;}
 
-/* ── NAV ── */
-nav {
-  background: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,.08);
-  position: sticky; top: 0; z-index: 900;
+/* ── TOP BAR ── */
+.topbar{
+  background:#2d6a4f;
+  color:#fff;
+  padding:8px 20px;
+  font-size:.82rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:6px;
 }
-.nav-container {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px; height: 70px;
+.topbar-left{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.topbar-left a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px;}
+.topbar-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.topbar-right a{color:#fff;text-decoration:none;font-size:.82rem;display:flex;align-items:center;gap:4px;}
+.topbar-right a:hover{text-decoration:underline;}
+
+/* ── MAIN NAV ── */
+nav{
+  background:#fff;
+  border-bottom:1px solid #e8e8e8;
+  position:sticky;top:0;z-index:900;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
-.nav-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
-.nav-brand .brand-icon { font-size: 1.8rem; }
-.nav-brand h1 { font-size: 1.3rem; font-weight: 700; color: #2d6a4f; }
-.nav-links { display: flex; align-items: center; gap: 5px; }
-.nav-links a {
-  text-decoration: none; color: #555; font-weight: 500; font-size: .9rem;
-  padding: 8px 14px; border-radius: 6px; transition: .2s; cursor: pointer;
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:72px;
 }
-.nav-links a:hover, .nav-links a.active { background: #d8f3dc; color: #2d6a4f; }
-.nav-actions { display: flex; gap: 8px; align-items: center; }
-.btn-nav {
-  padding: 9px 20px; border-radius: 8px; font-weight: 600; font-size: .88rem;
-  cursor: pointer; transition: .2s; font-family: 'Poppins', sans-serif; border: none;
+.nav-brand{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;}
+.brand-logo-box{
+  width:52px;height:52px;background:#2d6a4f;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
 }
-.btn-green { background: #2d6a4f; color: #fff; }
-.btn-green:hover { background: #1b4332; }
-.btn-outline-nav { background: transparent; color: #2d6a4f; border: 2px solid #2d6a4f !important; }
-.btn-outline-nav:hover { background: #2d6a4f; color: #fff; }
-.hamburger { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+.brand-text h1{font-size:1.1rem;font-weight:700;color:#2d6a4f;line-height:1.1;}
+.brand-text span{font-size:.7rem;font-weight:500;color:#666;letter-spacing:.5px;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{
+  text-decoration:none;color:#444;font-weight:500;font-size:.88rem;
+  padding:8px 14px;border-radius:6px;transition:.2s;cursor:pointer;
+}
+.nav-links a:hover,.nav-links a.active{background:#e8f5e9;color:#2d6a4f;}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.hamburger{
+  background:none;border:none;font-size:1.5rem;cursor:pointer;
+  color:#2d6a4f;display:none;
+}
+.btn-book-nav{
+  background:#2d6a4f;color:#fff;border:none;
+  padding:11px 22px;border-radius:8px;font-weight:600;font-size:.88rem;
+  cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;
+}
+.btn-book-nav:hover{background:#1b4332;}
 
 /* ── PAGES ── */
-.page { display: none; }
-.page.active { display: block; }
+.page{display:none;}.page.active{display:block;}
 
 /* ── HERO ── */
-.hero {
-  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
-  padding: 100px 20px 80px; text-align: center; position: relative; overflow: hidden;
+.hero{
+  background:#e8f5e9;
+  padding:70px 20px 60px;
+  position:relative;overflow:hidden;
 }
-.hero::before {
-  content: '🐾'; position: absolute; font-size: 300px; opacity: .04;
-  top: -60px; right: -60px; transform: rotate(15deg);
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.hero-content{}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fff;border:1.5px solid #c8e6c9;border-radius:50px;
+  padding:7px 18px;font-size:.82rem;font-weight:600;color:#2d6a4f;
+  margin-bottom:22px;box-shadow:0 2px 8px rgba(45,106,79,.08);
 }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,.15); color: #b7e4c7;
-  border: 1px solid rgba(255,255,255,.25); border-radius: 50px;
-  padding: 7px 20px; font-size: .83rem; font-weight: 600; margin-bottom: 24px;
+.hero h2{
+  font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#111;
+  line-height:1.2;margin-bottom:20px;
 }
-.hero h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: #fff;
-  line-height: 1.2; margin-bottom: 20px;
+.hero h2 em{color:#2d6a4f;font-style:italic;font-family:'Playfair Display',serif;}
+.hero p{color:#555;font-size:.98rem;line-height:1.75;margin-bottom:32px;max-width:500px;}
+.hero-btns{display:flex;flex-direction:column;gap:14px;max-width:320px;}
+.btn-hero-main{
+  background:#2d6a4f;color:#fff;border:none;padding:16px 28px;
+  border-radius:10px;font-weight:600;font-size:.98rem;cursor:pointer;
+  font-family:'Poppins',sans-serif;transition:.2s;display:flex;align-items:center;gap:8px;
 }
-.hero h2 span { color: #74c69d; }
-.hero p { color: #b7e4c7; font-size: 1.05rem; max-width: 580px; margin: 0 auto 36px; line-height: 1.7; }
-.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.btn-hero-primary {
-  background: #fff; color: #2d6a4f; padding: 14px 32px; border-radius: 10px;
-  font-weight: 700; font-size: 1rem; cursor: pointer; border: none; transition: .2s;
-  font-family: 'Poppins', sans-serif;
+.btn-hero-main:hover{background:#1b4332;}
+.btn-hero-sec{
+  background:#fff;color:#2d6a4f;border:2px solid #2d6a4f;
+  padding:14px 28px;border-radius:10px;font-weight:600;font-size:.98rem;
+  cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;
 }
-.btn-hero-primary:hover { background: #d8f3dc; transform: translateY(-2px); }
-.btn-hero-outline {
-  background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5);
-  padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem;
-  cursor: pointer; transition: .2s; font-family: 'Poppins', sans-serif;
+.btn-hero-sec:hover{background:#e8f5e9;}
+.hero-stats{display:flex;gap:32px;margin-top:40px;flex-wrap:wrap;}
+.hs-item{}
+.hs-item .n{font-size:2rem;font-weight:700;color:#2d6a4f;}
+.hs-item .l{font-size:.78rem;color:#666;font-weight:500;}
+.hero-image{display:flex;justify-content:center;align-items:center;}
+.hero-img-box{
+  width:100%;max-width:400px;height:380px;
+  background:linear-gradient(135deg,#c8e6c9,#a5d6a7);
+  border-radius:20px;display:flex;align-items:center;justify-content:center;
+  font-size:8rem;box-shadow:0 10px 40px rgba(45,106,79,.15);
 }
-.btn-hero-outline:hover { border-color: #fff; background: rgba(255,255,255,.1); }
-.hero-stats {
-  display: flex; justify-content: center; gap: 50px; margin-top: 60px;
-  flex-wrap: wrap; position: relative; z-index: 1;
-}
-.hero-stat .n { font-size: 2.2rem; font-weight: 700; color: #fff; }
-.hero-stat .l { font-size: .8rem; color: #74c69d; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
 
-/* ── PET SELECTOR ── */
-.pet-section { background: #f8fffe; padding: 60px 20px; }
-.pet-section h3 { text-align: center; font-size: 1.6rem; font-weight: 700; color: #1b4332; margin-bottom: 10px; }
-.pet-section p { text-align: center; color: #666; margin-bottom: 30px; }
-.pet-types { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
-.pet-type {
-  background: #fff; border: 2px solid #d8f3dc; border-radius: 14px;
-  padding: 20px 24px; text-align: center; cursor: pointer; transition: .2s;
-  min-width: 95px;
+/* ── SECTION ── */
+.section{padding:80px 20px;}
+.sec-wrap{max-width:1200px;margin:0 auto;}
+.sec-head{text-align:center;margin-bottom:50px;}
+.sec-tag{
+  display:inline-block;background:#e8f5e9;color:#2d6a4f;
+  font-weight:700;font-size:.75rem;padding:5px 16px;border-radius:50px;
+  text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;
 }
-.pet-type:hover, .pet-type.active {
-  border-color: #2d6a4f; background: #d8f3dc;
-  transform: translateY(-3px); box-shadow: 0 6px 16px rgba(45,106,79,.15);
-}
-.pet-type .emoji { font-size: 2.2rem; }
-.pet-type .name { font-size: .82rem; font-weight: 600; margin-top: 8px; color: #555; }
-.find-vet-btn {
-  display: block; margin: 0 auto; background: #2d6a4f; color: #fff;
-  border: none; padding: 14px 36px; border-radius: 10px; font-weight: 700;
-  font-size: 1rem; cursor: pointer; font-family: 'Poppins', sans-serif; transition: .2s;
-}
-.find-vet-btn:hover { background: #1b4332; }
+.sec-head h2{font-size:1.9rem;font-weight:700;color:#1b4332;margin-bottom:10px;}
+.sec-head p{color:#666;font-size:.93rem;}
 
-/* ── SERVICES ── */
-.services-section { padding: 80px 20px; background: #fff; }
-.section-header { text-align: center; margin-bottom: 50px; }
-.section-tag {
-  display: inline-block; background: #d8f3dc; color: #2d6a4f;
-  font-weight: 700; font-size: .78rem; padding: 5px 16px; border-radius: 50px;
-  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px;
+/* PET TYPES */
+.pet-types-wrap{background:#f8fffe;}
+.pet-grid{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.pet-card{
+  background:#fff;border:2px solid #d8f3dc;border-radius:14px;
+  padding:20px 24px;text-align:center;cursor:pointer;transition:.2s;min-width:95px;
 }
-.section-header h2 { font-size: 2rem; font-weight: 700; color: #1b4332; margin-bottom: 10px; }
-.section-header p { color: #666; font-size: .95rem; }
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
-.service-card {
-  background: #fff; border: 1.5px solid #e8f5e9; border-radius: 16px;
-  padding: 30px 26px; transition: .25s;
+.pet-card:hover,.pet-card.active{
+  border-color:#2d6a4f;background:#e8f5e9;
+  transform:translateY(-3px);box-shadow:0 6px 18px rgba(45,106,79,.15);
 }
-.service-card:hover { border-color: #2d6a4f; box-shadow: 0 8px 24px rgba(45,106,79,.12); transform: translateY(-4px); }
-.service-icon { font-size: 2.2rem; margin-bottom: 16px; }
-.service-card h3 { font-size: 1.05rem; font-weight: 700; color: #1b4332; margin-bottom: 10px; }
-.service-card p { color: #666; font-size: .88rem; line-height: 1.7; }
+.pet-card .pe{font-size:2.2rem;}
+.pet-card .pn{font-size:.8rem;font-weight:600;margin-top:6px;color:#444;}
+.find-btn{
+  display:block;margin:0 auto;background:#2d6a4f;color:#fff;border:none;
+  padding:14px 36px;border-radius:10px;font-weight:700;font-size:.95rem;
+  cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;
+}
+.find-btn:hover{background:#1b4332;}
 
-/* ── VETS SECTION ── */
-.vets-section { background: #f8fffe; padding: 80px 20px; }
-.vets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
-.vet-card {
-  background: #fff; border-radius: 16px; padding: 28px 20px; text-align: center;
-  border: 1.5px solid #e8f5e9; transition: .2s;
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
+.svc-card{
+  background:#fff;border:1.5px solid #e8f5e9;border-radius:16px;
+  padding:28px;transition:.25s;
 }
-.vet-card:hover { border-color: #2d6a4f; box-shadow: 0 6px 20px rgba(45,106,79,.12); }
-.vet-avatar {
-  width: 70px; height: 70px; border-radius: 50%; margin: 0 auto 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1.4rem; color: #fff;
+.svc-card:hover{border-color:#2d6a4f;box-shadow:0 8px 24px rgba(45,106,79,.1);transform:translateY(-4px);}
+.svc-icon{
+  width:52px;height:52px;background:#e8f5e9;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:16px;
 }
-.vet-card h4 { font-weight: 700; color: #1b4332; margin-bottom: 5px; font-size: .95rem; }
-.vet-card .spec { color: #2d6a4f; font-size: .82rem; font-weight: 600; margin-bottom: 8px; }
-.vet-card .pets { color: #888; font-size: .8rem; }
+.svc-card h3{font-weight:700;font-size:1rem;color:#1b4332;margin-bottom:8px;}
+.svc-card p{color:#666;font-size:.87rem;line-height:1.7;}
 
-/* ── HOW IT WORKS ── */
-.how-section { padding: 80px 20px; background: #fff; }
-.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
-.step-card { text-align: center; padding: 20px; }
-.step-num {
-  width: 60px; height: 60px; border-radius: 50%; background: #2d6a4f;
-  color: #fff; font-size: 1.5rem; font-weight: 700; display: flex;
-  align-items: center; justify-content: center; margin: 0 auto 18px;
+/* VETS */
+.vets-wrap{background:#f8fffe;}
+.vets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;}
+.vet-card{
+  background:#fff;border-radius:16px;padding:26px 18px;text-align:center;
+  border:1.5px solid #e8f5e9;transition:.2s;
 }
-.step-card h3 { font-weight: 700; margin-bottom: 8px; color: #1b4332; }
-.step-card p { color: #666; font-size: .88rem; line-height: 1.6; }
+.vet-card:hover{border-color:#2d6a4f;box-shadow:0 6px 20px rgba(45,106,79,.1);}
+.vet-av{
+  width:68px;height:68px;border-radius:50%;margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1.3rem;color:#fff;
+}
+.vet-card h4{font-weight:700;color:#1b4332;margin-bottom:4px;font-size:.92rem;}
+.vet-spec{color:#2d6a4f;font-size:.8rem;font-weight:600;margin-bottom:6px;}
+.vet-pets{color:#888;font-size:.78rem;}
 
-/* ── CTA ── */
-.cta-section {
-  background: linear-gradient(135deg, #1b4332, #40916c);
-  padding: 80px 20px; text-align: center;
+/* HOW */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px;max-width:1000px;margin:0 auto;}
+.how-card{text-align:center;padding:16px;}
+.how-num{
+  width:58px;height:58px;border-radius:50%;background:#2d6a4f;
+  color:#fff;font-size:1.4rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
 }
-.cta-section h2 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 14px; }
-.cta-section p { color: #b7e4c7; margin-bottom: 32px; font-size: 1rem; }
-.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.how-card h3{font-weight:700;margin-bottom:8px;color:#1b4332;font-size:.95rem;}
+.how-card p{color:#666;font-size:.86rem;line-height:1.65;}
 
-/* ── ABOUT ── */
-.about-hero { background: linear-gradient(135deg, #1b4332, #40916c); padding: 80px 20px; text-align: center; }
-.about-hero h2 { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
-.about-hero p { color: #b7e4c7; max-width: 580px; margin: 0 auto; line-height: 1.7; }
-.about-content { max-width: 1100px; margin: 0 auto; padding: 70px 20px; }
-.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 50px; }
-.about-card {
-  background: #fff; border: 1.5px solid #e8f5e9; border-radius: 16px;
-  padding: 30px; text-align: center;
-}
-.about-card .aico { font-size: 2.5rem; margin-bottom: 14px; }
-.about-card h3 { font-weight: 700; color: #1b4332; margin-bottom: 10px; }
-.about-card p { color: #666; font-size: .88rem; line-height: 1.6; }
-.mission-box {
-  background: linear-gradient(135deg, #d8f3dc, #b7e4c7);
-  border-radius: 16px; padding: 40px; text-align: center;
-}
-.mission-box h3 { font-size: 1.5rem; font-weight: 700; color: #1b4332; margin-bottom: 14px; }
-.mission-box p { color: #2d6a4f; max-width: 650px; margin: 0 auto; line-height: 1.8; }
+/* CTA */
+.cta-sec{background:linear-gradient(135deg,#1b4332,#40916c);padding:80px 20px;text-align:center;}
+.cta-sec h2{font-size:2rem;font-weight:700;color:#fff;margin-bottom:14px;}
+.cta-sec p{color:#b7e4c7;margin-bottom:32px;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-w{background:#fff;color:#2d6a4f;border:none;padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+.btn-cta-w:hover{background:#e8f5e9;}
+.btn-cta-o{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);padding:14px 32px;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+.btn-cta-o:hover{border-color:#fff;background:rgba(255,255,255,.1);}
 
-/* ── BOOKING ── */
-.book-hero { background: linear-gradient(135deg, #1b4332, #40916c); padding: 60px 20px; text-align: center; }
-.book-hero h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-.book-hero p { color: #b7e4c7; }
-.book-content { max-width: 720px; margin: 0 auto; padding: 50px 20px; }
-.booking-card {
-  background: #fff; border-radius: 20px; padding: 40px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.1); border: 1px solid #e8f5e9;
-}
-.progress-bar { display: flex; margin-bottom: 36px; border-radius: 10px; overflow: hidden; border: 1.5px solid #e8f5e9; }
-.prog-step {
-  flex: 1; padding: 11px 6px; text-align: center; font-size: .76rem;
-  font-weight: 600; background: #f8fffe; color: #888; transition: .2s;
-}
-.prog-step.active { background: #2d6a4f; color: #fff; }
-.prog-step.done { background: #40916c; color: #fff; }
-.form-step { display: none; }
-.form-step.active { display: block; }
-.form-step h3 { font-size: 1.2rem; font-weight: 700; color: #1b4332; margin-bottom: 24px; }
-.form-group { margin-bottom: 18px; }
-.form-group label { display: block; font-weight: 600; font-size: .87rem; color: #333; margin-bottom: 7px; }
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%; padding: 12px 15px; border: 1.5px solid #ddd; border-radius: 10px;
-  font-size: .92rem; font-family: 'Poppins', sans-serif; color: #333;
-  background: #fafafa; outline: none; transition: .2s;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #2d6a4f; background: #fff; }
-.form-group textarea { resize: vertical; min-height: 90px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.btn-book {
-  width: 100%; padding: 14px; border-radius: 10px; font-weight: 700; font-size: .95rem;
-  cursor: pointer; border: none; font-family: 'Poppins', sans-serif; transition: .2s; margin-top: 8px;
-}
-.btn-book.primary { background: #2d6a4f; color: #fff; }
-.btn-book.primary:hover { background: #1b4332; }
-.btn-book.primary:disabled { background: #aaa; cursor: not-allowed; }
-.btn-book.back { background: #f5f5f5; color: #555; }
-.btn-book.back:hover { background: #e8e8e8; }
-.pet-select-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
-.ps-item {
-  background: #f8fffe; border: 2px solid #e8f5e9; border-radius: 12px;
-  padding: 16px 20px; text-align: center; cursor: pointer; transition: .2s; min-width: 85px;
-}
-.ps-item:hover, .ps-item.sel { border-color: #2d6a4f; background: #d8f3dc; transform: translateY(-2px); }
-.ps-item .e { font-size: 1.9rem; }
-.ps-item .n { font-size: .78rem; font-weight: 600; margin-top: 5px; color: #555; }
-.vet-pick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.vp-item {
-  border: 2px solid #e8f5e9; border-radius: 12px; padding: 14px 12px;
-  cursor: pointer; transition: .2s; display: flex; align-items: center; gap: 12px;
-}
-.vp-item:hover, .vp-item.sel { border-color: #2d6a4f; background: #d8f3dc; }
-.vp-av {
-  width: 42px; height: 42px; border-radius: 50%; background: #2d6a4f;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-weight: 700; font-size: .95rem; flex-shrink: 0;
-}
-.vp-info h4 { font-size: .85rem; font-weight: 700; color: #1b4332; }
-.vp-info p { font-size: .75rem; color: #666; }
-.time-grid { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 8px; }
-.time-item {
-  padding: 9px 16px; border: 1.5px solid #ddd; border-radius: 8px;
-  cursor: pointer; font-size: .83rem; font-weight: 600; transition: .2s; background: #fafafa;
-}
-.time-item:hover, .time-item.sel { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
-.confirm-summary {
-  background: #f0faf0; border: 1.5px solid #d8f3dc; border-radius: 12px;
-  padding: 22px; margin-bottom: 20px;
-}
-.cs-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #d8f3dc; font-size: .88rem; }
-.cs-row:last-child { border-bottom: none; }
-.cs-label { color: #666; font-weight: 600; }
-.cs-value { font-weight: 700; color: #1b4332; }
-.success-wrap { text-align: center; padding: 30px 0; }
-.success-wrap .big-icon { font-size: 4.5rem; margin-bottom: 14px; }
-.success-wrap h3 { font-size: 1.8rem; font-weight: 700; color: #1b4332; margin-bottom: 10px; }
-.success-wrap p { color: #666; margin-bottom: 24px; line-height: 1.7; }
-.booking-ticket {
-  background: #fff; border: 2px dashed #2d6a4f; border-radius: 14px;
-  padding: 22px; margin-bottom: 24px; text-align: left;
-}
-.bt-label { font-size: .78rem; color: #888; margin-bottom: 5px; }
-.bt-ref { font-size: 1.8rem; font-weight: 700; color: #2d6a4f; }
+/* ABOUT */
+.about-hero{background:linear-gradient(135deg,#1b4332,#40916c);padding:80px 20px;text-align:center;}
+.about-hero h2{font-size:2.4rem;font-weight:700;color:#fff;margin-bottom:12px;}
+.about-hero p{color:#b7e4c7;max-width:560px;margin:0 auto;line-height:1.7;}
+.about-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
+.about-card{background:#fff;border:1.5px solid #e8f5e9;border-radius:16px;padding:28px;text-align:center;}
+.about-card .ai{font-size:2.4rem;margin-bottom:12px;}
+.about-card h3{font-weight:700;color:#1b4332;margin-bottom:8px;}
+.about-card p{color:#666;font-size:.87rem;line-height:1.65;}
+.mission{background:#e8f5e9;border-radius:16px;padding:40px;text-align:center;margin-top:40px;}
+.mission h3{font-size:1.5rem;font-weight:700;color:#1b4332;margin-bottom:14px;}
+.mission p{color:#2d6a4f;max-width:640px;margin:0 auto;line-height:1.8;}
 
-/* ── CONTACT ── */
-.contact-hero { background: linear-gradient(135deg, #1b4332, #40916c); padding: 80px 20px; text-align: center; }
-.contact-hero h2 { font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
-.contact-hero p { color: #b7e4c7; }
-.contact-content { max-width: 1100px; margin: 0 auto; padding: 70px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.contact-info-cards { display: flex; flex-direction: column; gap: 16px; }
-.contact-card {
-  background: #fff; border: 1.5px solid #e8f5e9; border-radius: 14px;
-  padding: 20px 22px; display: flex; align-items: center; gap: 16px;
+/* BOOKING */
+.book-hero{background:linear-gradient(135deg,#1b4332,#40916c);padding:60px 20px;text-align:center;}
+.book-hero h2{font-size:2rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.book-hero p{color:#b7e4c7;}
+.book-wrap{max-width:720px;margin:0 auto;padding:50px 20px;}
+.book-card{background:#fff;border-radius:20px;padding:38px;box-shadow:0 8px 32px rgba(0,0,0,.09);border:1px solid #e8f5e9;}
+.prog{display:flex;margin-bottom:34px;border-radius:10px;overflow:hidden;border:1.5px solid #e8f5e9;}
+.pb{flex:1;padding:11px 4px;text-align:center;font-size:.73rem;font-weight:600;background:#f8fffe;color:#999;transition:.2s;}
+.pb.active{background:#2d6a4f;color:#fff;}
+.pb.done{background:#40916c;color:#fff;}
+.fstep{display:none;}.fstep.active{display:block;}
+.fstep h3{font-size:1.15rem;font-weight:700;color:#1b4332;margin-bottom:22px;}
+.fg{margin-bottom:16px;}
+.fg label{display:block;font-weight:600;font-size:.86rem;color:#333;margin-bottom:6px;}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:10px;
+  font-size:.9rem;font-family:'Poppins',sans-serif;color:#333;
+  background:#fafafa;outline:none;transition:.2s;
 }
-.contact-card .cc-icon { font-size: 1.6rem; }
-.contact-card h4 { font-weight: 700; font-size: .92rem; color: #1b4332; margin-bottom: 3px; }
-.contact-card p { color: #666; font-size: .85rem; }
-.contact-card a { color: #2d6a4f; text-decoration: none; font-weight: 600; }
-.contact-form-box {
-  background: #fff; border: 1.5px solid #e8f5e9; border-radius: 14px; padding: 32px;
-}
-.contact-form-box h3 { font-weight: 700; font-size: 1.2rem; color: #1b4332; margin-bottom: 22px; }
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:#2d6a4f;background:#fff;}
+.fg textarea{resize:vertical;min-height:88px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.bbtn{width:100%;padding:13px;border-radius:10px;font-weight:700;font-size:.93rem;cursor:pointer;border:none;font-family:'Poppins',sans-serif;transition:.2s;margin-top:6px;}
+.bbtn.primary{background:#2d6a4f;color:#fff;}
+.bbtn.primary:hover{background:#1b4332;}
+.bbtn.primary:disabled{background:#aaa;cursor:not-allowed;}
+.bbtn.back{background:#f0f0f0;color:#555;}
+.bbtn.back:hover{background:#e0e0e0;}
+.ps-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+.ps{background:#f8fffe;border:2px solid #e8f5e9;border-radius:12px;padding:14px 18px;text-align:center;cursor:pointer;transition:.2s;min-width:82px;}
+.ps:hover,.ps.sel{border-color:#2d6a4f;background:#e8f5e9;}
+.ps .e{font-size:1.8rem;}
+.ps .n{font-size:.76rem;font-weight:600;margin-top:5px;color:#555;}
+.vp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.vp{border:2px solid #e8f5e9;border-radius:12px;padding:13px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:10px;}
+.vp:hover,.vp.sel{border-color:#2d6a4f;background:#e8f5e9;}
+.va{width:40px;height:40px;border-radius:50%;background:#2d6a4f;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.9rem;flex-shrink:0;}
+.vi h4{font-size:.83rem;font-weight:700;color:#1b4332;}
+.vi p{font-size:.72rem;color:#666;}
+.ts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.tsl{padding:8px 15px;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:.81rem;font-weight:600;transition:.2s;background:#fafafa;}
+.tsl:hover,.tsl.sel{background:#2d6a4f;color:#fff;border-color:#2d6a4f;}
+.csum{background:#f0faf0;border:1.5px solid #d8f3dc;border-radius:12px;padding:20px;margin-bottom:18px;}
+.cr{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #d8f3dc;font-size:.87rem;}
+.cr:last-child{border-bottom:none;}
+.cl{color:#666;font-weight:600;}.cv{font-weight:700;color:#1b4332;}
+.succ{text-align:center;padding:28px 0;}
+.succ .si{font-size:4rem;margin-bottom:12px;}
+.succ h3{font-size:1.7rem;font-weight:700;color:#1b4332;margin-bottom:10px;}
+.succ p{color:#666;margin-bottom:22px;line-height:1.7;}
+.ticket{background:#fff;border:2px dashed #2d6a4f;border-radius:14px;padding:20px;margin-bottom:22px;text-align:left;}
+.t-lbl{font-size:.76rem;color:#888;margin-bottom:4px;}
+.t-ref{font-size:1.75rem;font-weight:700;color:#2d6a4f;}
 
-/* ── ADMIN LOGIN MODAL ── */
-.admin-modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,.6);
-  z-index: 2000; display: none; align-items: center; justify-content: center; padding: 16px;
-}
-.admin-modal-overlay.open { display: flex; }
-.admin-modal {
-  background: #fff; border-radius: 20px; padding: 40px; max-width: 420px; width: 100%;
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-}
-.admin-modal h3 { font-size: 1.5rem; font-weight: 700; color: #1b4332; margin-bottom: 6px; }
-.admin-modal .sub { color: #888; font-size: .88rem; margin-bottom: 28px; }
-.admin-modal .close-modal {
-  float: right; background: none; border: none; font-size: 1.3rem;
-  cursor: pointer; color: #aaa; margin-top: -6px;
-}
-.admin-modal .close-modal:hover { color: #333; }
+/* CONTACT */
+.contact-hero{background:linear-gradient(135deg,#1b4332,#40916c);padding:80px 20px;text-align:center;}
+.contact-hero h2{font-size:2.2rem;font-weight:700;color:#fff;margin-bottom:12px;}
+.contact-hero p{color:#b7e4c7;}
+.contact-body{max-width:1100px;margin:0 auto;padding:70px 20px;display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.cinfo{display:flex;flex-direction:column;gap:14px;}
+.ccard{background:#fff;border:1.5px solid #e8f5e9;border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;}
+.ccard .ci{font-size:1.5rem;}
+.ccard h4{font-weight:700;font-size:.9rem;color:#1b4332;margin-bottom:2px;}
+.ccard p,.ccard a{color:#666;font-size:.84rem;}
+.ccard a{color:#2d6a4f;text-decoration:none;font-weight:600;}
+.cform-box{background:#fff;border:1.5px solid #e8f5e9;border-radius:14px;padding:30px;}
+.cform-box h3{font-weight:700;font-size:1.15rem;color:#1b4332;margin-bottom:20px;}
 
-/* ── ADMIN PANEL ── */
-.admin-panel { min-height: 100vh; background: #f5f7fa; }
-.admin-topbar {
-  background: linear-gradient(135deg, #1b4332, #2d6a4f);
-  padding: 0 24px; height: 65px; display: flex; align-items: center;
-  justify-content: space-between;
-}
-.admin-topbar h1 { color: #fff; font-size: 1.2rem; font-weight: 700; }
-.admin-topbar p { color: #b7e4c7; font-size: .82rem; }
-.admin-body { max-width: 1300px; margin: 0 auto; padding: 28px 20px; }
-.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
-.a-stat {
-  background: #fff; border-radius: 14px; padding: 20px 18px;
-  display: flex; align-items: center; gap: 14px;
-  border: 1px solid #e8e8e8; box-shadow: 0 2px 8px rgba(0,0,0,.05);
-}
-.a-stat-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-.a-stat-icon.green { background: #d8f3dc; }
-.a-stat-icon.yellow { background: #fff3cd; }
-.a-stat-icon.blue { background: #d0e8ff; }
-.a-stat-icon.red { background: #ffe0e0; }
-.a-stat-num { font-size: 1.9rem; font-weight: 700; color: #1b4332; line-height: 1; }
-.a-stat-label { font-size: .73rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; }
-.admin-card { background: #fff; border-radius: 16px; border: 1px solid #e8e8e8; box-shadow: 0 2px 8px rgba(0,0,0,.05); overflow: hidden; }
-.admin-card-header {
-  padding: 18px 22px; border-bottom: 1px solid #f0f0f0;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-}
-.admin-card-header h3 { font-weight: 700; font-size: 1rem; color: #1b4332; }
-.tab-filters { display: flex; gap: 4px; flex-wrap: wrap; }
-.tab-f {
-  padding: 7px 15px; border-radius: 7px; font-size: .8rem; font-weight: 600;
-  cursor: pointer; border: 1.5px solid #e8e8e8; background: #fff; color: #666; transition: .15s;
-}
-.tab-f:hover { border-color: #2d6a4f; color: #2d6a4f; }
-.tab-f.active { background: #2d6a4f; color: #fff; border-color: #2d6a4f; }
-.admin-toolbar { display: flex; gap: 10px; padding: 16px 22px; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
-.admin-toolbar input, .admin-toolbar select {
-  padding: 9px 13px; border: 1.5px solid #e0e0e0; border-radius: 9px;
-  font-family: 'Poppins', sans-serif; font-size: .85rem; outline: none; color: #333;
-}
-.admin-toolbar input:focus, .admin-toolbar select:focus { border-color: #2d6a4f; }
-.admin-toolbar input { flex: 1; min-width: 200px; }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; min-width: 800px; }
-thead tr { background: linear-gradient(135deg, #1b4332, #2d6a4f); }
-thead th { color: #fff; font-size: .8rem; font-weight: 600; padding: 13px 16px; text-align: left; white-space: nowrap; }
-tbody tr { border-bottom: 1px solid #f5f5f5; transition: .15s; }
-tbody tr:hover { background: #f8fffe; }
-tbody td { padding: 13px 16px; font-size: .84rem; vertical-align: middle; }
-.status-badge { display: inline-flex; padding: 4px 12px; border-radius: 50px; font-size: .73rem; font-weight: 700; }
-.status-badge.pending { background: #fff3cd; color: #856404; }
-.status-badge.confirmed { background: #d8f3dc; color: #1b4332; }
-.status-badge.completed { background: #d0e8ff; color: #0c4a6e; }
-.status-badge.cancelled { background: #ffe0e0; color: #991b1b; }
-.action-wrap { display: flex; gap: 5px; flex-wrap: wrap; }
-.act {
-  padding: 5px 11px; border-radius: 6px; font-size: .72rem; font-weight: 700;
-  cursor: pointer; border: 1.5px solid; transition: .15s; white-space: nowrap;
-  font-family: 'Poppins', sans-serif;
-}
-.act.view { color: #0d9488; border-color: #0d9488; background: #f0fdfa; }
-.act.view:hover { background: #0d9488; color: #fff; }
-.act.approve { color: #2d6a4f; border-color: #2d6a4f; background: #f0faf0; }
-.act.approve:hover { background: #2d6a4f; color: #fff; }
-.act.done { color: #1d4ed8; border-color: #1d4ed8; background: #eff6ff; }
-.act.done:hover { background: #1d4ed8; color: #fff; }
-.act.cancel { color: #dc2626; border-color: #dc2626; background: #fff5f5; }
-.act.cancel:hover { background: #dc2626; color: #fff; }
-.act.export { color: #7c3aed; border-color: #7c3aed; background: #f5f3ff; padding: 8px 16px; }
-.act.export:hover { background: #7c3aed; color: #fff; }
-.act.logout { color: #dc2626; border-color: #dc2626; background: #fff5f5; padding: 8px 16px; }
-.act.logout:hover { background: #dc2626; color: #fff; }
-.empty-table { text-align: center; padding: 48px; color: #aaa; }
-.loading-row td { text-align: center; padding: 32px; color: #aaa; font-size: .88rem; }
-.spinner { display: inline-block; width: 18px; height: 18px; border: 3px solid #e8f5e9; border-top-color: #2d6a4f; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 8px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #74c69d; display: inline-block; margin-right: 6px; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.4;} }
+/* ADMIN LOGIN MODAL */
+.aml-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;}
+.aml-overlay.open{display:flex;}
+.aml-box{background:#fff;border-radius:20px;padding:38px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.aml-box h3{font-size:1.4rem;font-weight:700;color:#1b4332;margin-bottom:5px;}
+.aml-box .sub{color:#888;font-size:.86rem;margin-bottom:26px;}
+.aml-close{float:right;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#aaa;margin-top:-5px;}
 
-/* ── DETAIL MODAL ── */
-.detail-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 16px; }
-.detail-modal-overlay.open { display: flex; }
-.detail-modal { background: #fff; border-radius: 18px; padding: 32px; max-width: 500px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.2); max-height: 90vh; overflow-y: auto; }
-.detail-modal h3 { font-weight: 700; color: #1b4332; font-size: 1.3rem; margin-bottom: 20px; }
-.detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: .87rem; gap: 12px; }
-.detail-row:last-of-type { border-bottom: none; }
-.d-label { color: #888; font-weight: 600; white-space: nowrap; }
-.d-value { font-weight: 700; color: #1b4332; text-align: right; }
+/* ADMIN PANEL */
+.ap-wrap{min-height:100vh;background:#f4f6f8;}
+.ap-bar{background:linear-gradient(135deg,#1b4332,#2d6a4f);padding:0 22px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.ap-bar h1{color:#fff;font-size:1.15rem;font-weight:700;}
+.ap-bar p{color:#b7e4c7;font-size:.8rem;}
+.ap-body{max-width:1300px;margin:0 auto;padding:26px 18px;}
+.ap-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:24px;}
+.ast{background:#fff;border-radius:14px;padding:18px;display:flex;align-items:center;gap:12px;border:1px solid #e8e8e8;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.ast-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.ast-ico.g{background:#e8f5e9;} .ast-ico.y{background:#fff8e1;} .ast-ico.b{background:#e3f2fd;} .ast-ico.r{background:#fce4ec;}
+.ast-n{font-size:1.8rem;font-weight:700;color:#1b4332;line-height:1;}
+.ast-l{font-size:.7rem;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+.ap-card{background:#fff;border-radius:16px;border:1px solid #e8e8e8;box-shadow:0 2px 8px rgba(0,0,0,.04);overflow:hidden;}
+.ap-card-head{padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.ap-card-head h3{font-weight:700;font-size:.98rem;color:#1b4332;}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;}
+.tab{padding:7px 14px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid #e0e0e0;background:#fff;color:#666;transition:.15s;}
+.tab:hover{border-color:#2d6a4f;color:#2d6a4f;}
+.tab.active{background:#2d6a4f;color:#fff;border-color:#2d6a4f;}
+.ap-tools{display:flex;gap:10px;padding:14px 20px;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;}
+.ap-tools input,.ap-tools select{padding:9px 13px;border:1.5px solid #e0e0e0;border-radius:9px;font-family:'Poppins',sans-serif;font-size:.84rem;outline:none;color:#333;}
+.ap-tools input:focus,.ap-tools select:focus{border-color:#2d6a4f;}
+.ap-tools input{flex:1;min-width:200px;}
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;min-width:780px;}
+thead tr{background:linear-gradient(135deg,#1b4332,#2d6a4f);}
+thead th{color:#fff;font-size:.79rem;font-weight:600;padding:13px 15px;text-align:left;white-space:nowrap;}
+tbody tr{border-bottom:1px solid #f5f5f5;transition:.15s;}
+tbody tr:hover{background:#f8fffe;}
+tbody td{padding:12px 15px;font-size:.83rem;vertical-align:middle;}
+.sbdg{display:inline-flex;padding:4px 11px;border-radius:50px;font-size:.72rem;font-weight:700;}
+.sbdg.pending{background:#fff8e1;color:#f57f17;}
+.sbdg.confirmed{background:#e8f5e9;color:#1b4332;}
+.sbdg.completed{background:#e3f2fd;color:#0d47a1;}
+.sbdg.cancelled{background:#fce4ec;color:#880e4f;}
+.abts{display:flex;gap:4px;flex-wrap:wrap;}
+.ab{padding:5px 10px;border-radius:6px;font-size:.71rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:.15s;white-space:nowrap;font-family:'Poppins',sans-serif;}
+.ab.vw{color:#0d9488;border-color:#0d9488;background:#f0fdfa;}.ab.vw:hover{background:#0d9488;color:#fff;}
+.ab.ap{color:#2d6a4f;border-color:#2d6a4f;background:#f0faf0;}.ab.ap:hover{background:#2d6a4f;color:#fff;}
+.ab.dn{color:#1565c0;border-color:#1565c0;background:#e8f4ff;}.ab.dn:hover{background:#1565c0;color:#fff;}
+.ab.cn{color:#c62828;border-color:#c62828;background:#fff5f5;}.ab.cn:hover{background:#c62828;color:#fff;}
+.ab.exp{color:#6a1b9a;border-color:#6a1b9a;background:#f3e5f5;padding:8px 16px;}.ab.exp:hover{background:#6a1b9a;color:#fff;}
+.ab.lo{color:#c62828;border-color:#c62828;background:#fff5f5;padding:8px 16px;}.ab.lo:hover{background:#c62828;color:#fff;}
+.empty-t{text-align:center;padding:44px;color:#aaa;}
+.ldr td{text-align:center;padding:30px;color:#aaa;font-size:.86rem;}
+.spin{display:inline-block;width:17px;height:17px;border:3px solid #e8f5e9;border-top-color:#2d6a4f;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:7px;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.ldot{width:8px;height:8px;border-radius:50%;background:#74c69d;display:inline-block;margin-right:5px;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-/* ── FOOTER ── */
-footer { background: #1b4332; color: #b7e4c7; padding: 60px 20px 24px; }
-.footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-.footer-brand h3 { color: #fff; font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
-.footer-brand p { font-size: .85rem; line-height: 1.8; }
-.footer-socials { display: flex; gap: 10px; margin-top: 16px; }
-.footer-socials a { color: #b7e4c7; text-decoration: none; font-size: .85rem; transition: .15s; }
-.footer-socials a:hover { color: #fff; }
-.footer-col h4 { color: #fff; font-weight: 700; font-size: .95rem; margin-bottom: 16px; }
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 10px; }
-.footer-col ul li a { color: #b7e4c7; text-decoration: none; font-size: .85rem; cursor: pointer; transition: .15s; }
-.footer-col ul li a:hover { color: #fff; }
-.footer-bottom {
-  max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,.1);
-  padding-top: 24px; display: flex; justify-content: space-between; align-items: center;
-  font-size: .82rem; flex-wrap: wrap; gap: 10px;
-}
-/* Hidden admin trigger - tiny lock in footer bottom */
-.admin-trigger {
-  cursor: pointer; opacity: .25; font-size: .85rem; transition: .2s;
-  user-select: none; background: none; border: none; color: #b7e4c7;
-}
-.admin-trigger:hover { opacity: .6; }
+/* DETAIL MODAL */
+.dm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:3000;display:none;align-items:center;justify-content:center;padding:16px;}
+.dm-overlay.open{display:flex;}
+.dm-box{background:#fff;border-radius:18px;padding:30px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto;}
+.dm-box h3{font-weight:700;color:#1b4332;font-size:1.25rem;margin-bottom:18px;}
+.dr{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:.86rem;gap:10px;}
+.dr:last-of-type{border-bottom:none;}
+.dl{color:#888;font-weight:600;white-space:nowrap;}
+.dv{font-weight:700;color:#1b4332;text-align:right;}
 
-/* ── TOAST ── */
-.toast {
-  position: fixed; bottom: 24px; right: 24px; background: #1b4332;
-  color: #fff; padding: 14px 22px; border-radius: 12px; font-weight: 600;
-  font-size: .9rem; z-index: 9999; transform: translateY(80px); opacity: 0;
-  transition: .35s; box-shadow: 0 8px 24px rgba(0,0,0,.2); max-width: 320px;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
+/* FOOTER */
+footer{background:#1b4332;color:#b7e4c7;padding:55px 20px 20px;}
+.ft-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+.ft-brand h3{color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:10px;}
+.ft-brand p{font-size:.84rem;line-height:1.8;}
+.ft-socials{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;}
+.ft-socials a{color:#b7e4c7;text-decoration:none;font-size:.82rem;}
+.ft-socials a:hover{color:#fff;}
+.ft-col h4{color:#fff;font-weight:700;font-size:.92rem;margin-bottom:14px;}
+.ft-col ul{list-style:none;}
+.ft-col ul li{margin-bottom:9px;}
+.ft-col ul li a{color:#b7e4c7;text-decoration:none;font-size:.83rem;cursor:pointer;}
+.ft-col ul li a:hover{color:#fff;}
+.ft-bot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem;flex-wrap:wrap;gap:8px;}
+.admin-key{background:none;border:none;color:rgba(255,255,255,.15);cursor:pointer;font-size:.85rem;transition:.2s;padding:4px;}
+.admin-key:hover{color:rgba(255,255,255,.4);}
 
-/* ── WHATSAPP FLOAT ── */
-.wa-float {
-  position: fixed; bottom: 24px; left: 24px; z-index: 800;
-  background: #25d366; color: #fff; border-radius: 50%; width: 52px; height: 52px;
-  display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
-  text-decoration: none; box-shadow: 0 4px 14px rgba(37,211,102,.4); transition: .2s;
-}
-.wa-float:hover { transform: scale(1.1); }
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:#1b4332;color:#fff;padding:13px 20px;border-radius:12px;font-weight:600;font-size:.88rem;z-index:9999;transform:translateY(80px);opacity:0;transition:.3s;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}
 
-@media (max-width: 900px) {
-  .footer-inner { grid-template-columns: 1fr 1fr; }
+/* WA */
+.wa{position:fixed;bottom:22px;left:22px;z-index:800;background:#25d366;color:#fff;border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:1.55rem;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,.4);transition:.2s;}
+.wa:hover{transform:scale(1.1);}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-image{display:none;}
+  .ft-inner{grid-template-columns:1fr 1fr;}
 }
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .form-row, .vet-pick-grid, .contact-content { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; }
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .topbar-right .social-links{display:none;}
+  .frow,.vp-grid,.contact-body{grid-template-columns:1fr;}
+  .ft-inner{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/2347080951392" class="wa-float" target="_blank">💬</a>
-
-<!-- Toast -->
+<a href="https://wa.me/2347080951392" class="wa" target="_blank">💬</a>
 <div class="toast" id="toast"></div>
 
-<!-- ═══════════════ ADMIN LOGIN MODAL ═══════════════ -->
-<div class="admin-modal-overlay" id="adminLoginModal">
-  <div class="admin-modal">
-    <button class="close-modal" onclick="closeAdminModal()">✕</button>
+<!-- ADMIN LOGIN MODAL -->
+<div class="aml-overlay" id="aml">
+  <div class="aml-box">
+    <button class="aml-close" onclick="closeAml()">✕</button>
     <h3>🔐 Admin Access</h3>
     <p class="sub">Enter your credentials to continue</p>
-    <div class="form-group"><label>Email Address</label><input type="email" id="a-email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')doAdminLogin()"/></div>
-    <div class="form-group"><label>Password</label><input type="password" id="a-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()"/></div>
-    <button class="btn-book primary" onclick="doAdminLogin()">Sign In</button>
+    <div class="fg"><label>Email Address</label><input type="email" id="a-em" placeholder="your@email.com" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <div class="fg"><label>Password</label><input type="password" id="a-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="bbtn primary" onclick="doLogin()">Sign In</button>
   </div>
 </div>
 
-<!-- ═══════════════ DETAIL MODAL ═══════════════ -->
-<div class="detail-modal-overlay" id="detailModal">
-  <div class="detail-modal">
-    <button class="close-modal" style="float:right;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#aaa;" onclick="closeDetailModal()">✕</button>
-    <h3 id="dm-title">Appointment Details</h3>
-    <div id="dm-body"></div>
+<!-- DETAIL MODAL -->
+<div class="dm-overlay" id="dm">
+  <div class="dm-box">
+    <button style="float:right;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#aaa;" onclick="closeDm()">✕</button>
+    <h3 id="dm-t">Details</h3>
+    <div id="dm-b"></div>
   </div>
 </div>
 
-<!-- ═══════════════ NAVBAR ═══════════════ -->
+<!-- TOP BAR -->
+<div class="topbar" id="topbar">
+  <div class="topbar-left">
+    <a href="#"><span>📍</span> Ibadan, Oyo State, Nigeria</a>
+    <a href="tel:07080951392"><span>📞</span> 07080951392</a>
+  </div>
+  <div class="topbar-right">
+    <a href="#" class="social-links"><span>📘</span> Facebook</a>
+    <a href="#" class="social-links"><span>📷</span> Instagram</a>
+    <a href="#" class="social-links"><span>▶️</span> YouTube</a>
+    <a onclick="showPage('login')" style="cursor:pointer;">Login</a>
+    <a onclick="showPage('register')" style="cursor:pointer;">Register</a>
+    <a onclick="openAml()" style="cursor:pointer;background:rgba(255,255,255,.18);padding:3px 12px;border-radius:50px;font-weight:600;">🔐 Admin</a>
+  </div>
+</div>
+
+<!-- MAIN NAV -->
 <nav id="main-nav">
-  <div class="nav-container">
+  <div class="nav-inner">
     <a class="nav-brand" onclick="showPage('home')">
-      <span class="brand-icon">🏥</span>
-      <h1>OCROWN Veterinary Hospital</h1>
+      <div class="brand-logo-box">🏥</div>
+      <div class="brand-text">
+        <h1>OCROWN</h1>
+        <span>Veterinary Hospital</span>
+      </div>
     </a>
     <div class="nav-links">
       <a id="nl-home" class="active" onclick="showPage('home')">Home</a>
       <a id="nl-about" onclick="showPage('about')">About</a>
-      <a id="nl-vets" onclick="showPage('home'); setTimeout(()=>document.getElementById('vets-sec').scrollIntoView({behavior:'smooth'}),300)">Veterinarians</a>
+      <a id="nl-vets" onclick="scrollToVets()">Veterinarians</a>
       <a id="nl-contact" onclick="showPage('contact')">Contact</a>
       <a id="nl-login" onclick="showPage('login')">Login</a>
     </div>
-    <div class="nav-actions">
-      <button class="btn-nav btn-outline-nav" onclick="showPage('login')">Login</button>
-      <button class="btn-nav btn-green" onclick="showPage('book')">Book Appointment</button>
+    <div class="nav-right">
+      <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+      <button class="btn-book-nav" onclick="showPage('book')">Book Appointment</button>
     </div>
   </div>
 </nav>
 
-<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<!-- ═══ HOME ═══ -->
 <div id="page-home" class="page active">
-  <!-- Hero -->
+
+  <!-- HERO -->
   <div class="hero">
-    <div class="hero-badge">🏆 Ibadan's Trusted Veterinary Care</div>
-    <h2>Expert Care for Your <span>Beloved Pets</span></h2>
-    <p>Book appointments with certified veterinarians in seconds. Specialized care for dogs, cats, birds, and more — right here in Ibadan.</p>
-    <div class="hero-btns">
-      <button class="btn-hero-primary" onclick="showPage('book')">📅 Book an Appointment</button>
-      <button class="btn-hero-outline" onclick="showPage('about')">Meet Our Vets →</button>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="n">8+</div><div class="l">Expert Vets</div></div>
-      <div class="hero-stat"><div class="n">5,000+</div><div class="l">Pets Treated</div></div>
-      <div class="hero-stat"><div class="n">98%</div><div class="l">Happy Owners</div></div>
-      <div class="hero-stat"><div class="n">24/7</div><div class="l">Emergency</div></div>
-    </div>
-  </div>
-
-  <!-- Pet Selector -->
-  <div class="pet-section">
-    <h3>🐾 Select Your Pet Type</h3>
-    <p>Choose your pet to find matching veterinarians</p>
-    <div class="pet-types">
-      <div class="pet-type" onclick="selHomePet(this,'Dog')"><div class="emoji">🐕</div><div class="name">Dog</div></div>
-      <div class="pet-type" onclick="selHomePet(this,'Cat')"><div class="emoji">🐈</div><div class="name">Cat</div></div>
-      <div class="pet-type" onclick="selHomePet(this,'Bird')"><div class="emoji">🦜</div><div class="name">Bird</div></div>
-      <div class="pet-type" onclick="selHomePet(this,'Rabbit')"><div class="emoji">🐇</div><div class="name">Rabbit</div></div>
-      <div class="pet-type" onclick="selHomePet(this,'Fish')"><div class="emoji">🐟</div><div class="name">Fish</div></div>
-      <div class="pet-type" onclick="selHomePet(this,'Other')"><div class="emoji">🐾</div><div class="name">Other</div></div>
-    </div>
-    <button class="find-vet-btn" onclick="showPage('book')">Find Available Vets →</button>
-  </div>
-
-  <!-- Services -->
-  <div class="services-section">
-    <div class="section-header">
-      <div class="section-tag">Our Services</div>
-      <h2>Comprehensive Pet Healthcare</h2>
-      <p>Everything your pet needs under one roof</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card"><div class="service-icon">🩺</div><h3>General Checkup</h3><p>Routine wellness exams, vaccinations, and preventive care for all pets.</p></div>
-      <div class="service-card"><div class="service-icon">💉</div><h3>Vaccinations</h3><p>Full vaccination schedules for dogs, cats, birds, and exotic animals.</p></div>
-      <div class="service-card"><div class="service-icon">🔬</div><h3>Lab Diagnostics</h3><p>In-house blood tests, urinalysis, and diagnostic imaging services.</p></div>
-      <div class="service-card"><div class="service-icon">🏥</div><h3>Surgery</h3><p>Minor and major surgical procedures performed by experienced surgeons.</p></div>
-      <div class="service-card"><div class="service-icon">🦷</div><h3>Dental Care</h3><p>Professional dental cleaning, tooth extraction, and oral health assessment.</p></div>
-      <div class="service-card"><div class="service-icon">🚑</div><h3>Emergency Care</h3><p>24/7 emergency veterinary services for urgent and critical conditions.</p></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">🏆 Ibadan's Trusted Veterinary Care</div>
+        <h2>Expert Care for Your <em>Beloved Pets</em></h2>
+        <p>Book appointments with certified veterinarians in seconds. Specialized care for dogs, cats, birds, and more — right here in Ibadan.</p>
+        <div class="hero-btns">
+          <button class="btn-hero-main" onclick="showPage('book')">📅 Book an Appointment</button>
+          <button class="btn-hero-sec" onclick="scrollToVets()">Meet Our Vets →</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hs-item"><div class="n">8+</div><div class="l">Expert Vets</div></div>
+          <div class="hs-item"><div class="n">5,000+</div><div class="l">Pets Treated</div></div>
+          <div class="hs-item"><div class="n">98%</div><div class="l">Happy Owners</div></div>
+          <div class="hs-item"><div class="n">24/7</div><div class="l">Emergency Care</div></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-img-box">🐾</div>
+      </div>
     </div>
   </div>
 
-  <!-- Vets -->
-  <div class="vets-section" id="vets-sec">
-    <div class="section-header">
-      <div class="section-tag">Our Team</div>
-      <h2>Meet Our Veterinarians</h2>
-      <p>Experienced, compassionate vets ready to care for your pets</p>
-    </div>
-    <div class="vets-grid">
-      <div class="vet-card"><div class="vet-avatar" style="background:#2d6a4f;">AO</div><h4>Dr. Adewale Okafor</h4><div class="spec">General & Surgery</div><div class="pets">Dogs · Cats · All Pets</div></div>
-      <div class="vet-card"><div class="vet-avatar" style="background:#0d9488;">FB</div><h4>Dr. Fatima Bello</h4><div class="spec">Cats & Small Pets</div><div class="pets">Cats · Rabbits · Guinea Pigs</div></div>
-      <div class="vet-card"><div class="vet-avatar" style="background:#7c3aed;">CN</div><h4>Dr. Chukwuemeka Nwosu</h4><div class="spec">Dental & Surgery</div><div class="pets">All Pets · Dental Care</div></div>
-      <div class="vet-card"><div class="vet-avatar" style="background:#ea580c;">YI</div><h4>Dr. Yusuf Ibrahim</h4><div class="spec">Birds & Exotic</div><div class="pets">Birds · Reptiles · Exotic</div></div>
+  <!-- PET TYPES -->
+  <div class="section pet-types-wrap">
+    <div class="sec-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">🐾 Select Your Pet Type</div>
+        <h2>Find Your Perfect Vet</h2>
+        <p>Choose your pet to find matching veterinarians</p>
+      </div>
+      <div class="pet-grid">
+        <div class="pet-card" onclick="selHomePet(this,'Dog')"><div class="pe">🐕</div><div class="pn">Dog</div></div>
+        <div class="pet-card" onclick="selHomePet(this,'Cat')"><div class="pe">🐈</div><div class="pn">Cat</div></div>
+        <div class="pet-card" onclick="selHomePet(this,'Bird')"><div class="pe">🦜</div><div class="pn">Bird</div></div>
+        <div class="pet-card" onclick="selHomePet(this,'Rabbit')"><div class="pe">🐇</div><div class="pn">Rabbit</div></div>
+        <div class="pet-card" onclick="selHomePet(this,'Fish')"><div class="pe">🐟</div><div class="pn">Fish</div></div>
+        <div class="pet-card" onclick="selHomePet(this,'Other')"><div class="pe">🐾</div><div class="pn">Other</div></div>
+      </div>
+      <button class="find-btn" onclick="showPage('book')">Find Available Vets →</button>
     </div>
   </div>
 
-  <!-- How It Works -->
-  <div class="how-section">
-    <div class="section-header">
-      <div class="section-tag">How It Works</div>
-      <h2>Book in 4 Simple Steps</h2>
-      <p>Getting your pet the care they need has never been easier</p>
+  <!-- SERVICES -->
+  <div class="section" style="background:#fff;">
+    <div class="sec-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Our Services</div>
+        <h2>Comprehensive Pet Healthcare</h2>
+        <p>Everything your pet needs under one roof</p>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card"><div class="svc-icon">🩺</div><h3>General Checkup</h3><p>Routine wellness exams, vaccinations, and preventive care for all pets.</p></div>
+        <div class="svc-card"><div class="svc-icon">💉</div><h3>Vaccinations</h3><p>Full vaccination schedules for dogs, cats, birds, and exotic animals.</p></div>
+        <div class="svc-card"><div class="svc-icon">🔬</div><h3>Lab Diagnostics</h3><p>In-house blood tests, urinalysis, and diagnostic imaging services.</p></div>
+        <div class="svc-card"><div class="svc-icon">🏥</div><h3>Surgery</h3><p>Minor and major surgical procedures performed by experienced surgeons.</p></div>
+        <div class="svc-card"><div class="svc-icon">🦷</div><h3>Dental Care</h3><p>Professional dental cleaning, tooth extraction, and oral health assessment.</p></div>
+        <div class="svc-card"><div class="svc-icon">🚑</div><h3>Emergency Care</h3><p>24/7 emergency veterinary services for urgent and critical conditions.</p></div>
+      </div>
     </div>
-    <div class="steps-grid">
-      <div class="step-card"><div class="step-num">1</div><h3>Select Pet Type</h3><p>Choose the type of pet you have to filter matching vets.</p></div>
-      <div class="step-card"><div class="step-num">2</div><h3>Choose a Vet</h3><p>Browse available veterinarians and pick your preferred doctor.</p></div>
-      <div class="step-card"><div class="step-num">3</div><h3>Pick Date & Time</h3><p>Select a convenient appointment slot from live availability.</p></div>
-      <div class="step-card"><div class="step-num">4</div><h3>Get Confirmed</h3><p>Receive instant booking confirmation via WhatsApp and email.</p></div>
+  </div>
+
+  <!-- VETS -->
+  <div class="section vets-wrap" id="vets-section">
+    <div class="sec-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">Our Team</div>
+        <h2>Meet Our Veterinarians</h2>
+        <p>Experienced, compassionate vets ready to care for your pets</p>
+      </div>
+      <div class="vets-grid">
+        <div class="vet-card"><div class="vet-av" style="background:#2d6a4f;">AO</div><h4>Dr. Adewale Okafor</h4><div class="vet-spec">General & Surgery</div><div class="vet-pets">Dogs · Cats · All Pets</div></div>
+        <div class="vet-card"><div class="vet-av" style="background:#0d9488;">FB</div><h4>Dr. Fatima Bello</h4><div class="vet-spec">Cats & Small Pets</div><div class="vet-pets">Cats · Rabbits · Guinea Pigs</div></div>
+        <div class="vet-card"><div class="vet-av" style="background:#7c3aed;">CN</div><h4>Dr. Chukwuemeka Nwosu</h4><div class="vet-spec">Dental & Surgery</div><div class="vet-pets">All Pets · Dental Care</div></div>
+        <div class="vet-card"><div class="vet-av" style="background:#ea580c;">YI</div><h4>Dr. Yusuf Ibrahim</h4><div class="vet-spec">Birds & Exotic</div><div class="vet-pets">Birds · Reptiles · Exotic</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW -->
+  <div class="section" style="background:#fff;">
+    <div class="sec-wrap">
+      <div class="sec-head">
+        <div class="sec-tag">How It Works</div>
+        <h2>Book in 4 Simple Steps</h2>
+        <p>Getting your pet the care they need has never been easier</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">1</div><h3>Select Pet Type</h3><p>Choose the type of pet you have to filter matching vets.</p></div>
+        <div class="how-card"><div class="how-num">2</div><h3>Choose a Vet</h3><p>Browse available veterinarians and pick your preferred doctor.</p></div>
+        <div class="how-card"><div class="how-num">3</div><h3>Pick Date & Time</h3><p>Select a convenient slot from live availability calendar.</p></div>
+        <div class="how-card"><div class="how-num">4</div><h3>Get Confirmed</h3><p>Receive instant confirmation via WhatsApp and email.</p></div>
+      </div>
     </div>
   </div>
 
   <!-- CTA -->
-  <div class="cta-section">
+  <div class="cta-sec">
     <h2>Your Pet Deserves the Best Care</h2>
     <p>Book an appointment today at OCROWN Veterinary Hospital, Ibadan</p>
     <div class="cta-btns">
-      <button class="btn-hero-primary" onclick="showPage('book')">📅 Book Appointment Now</button>
-      <a href="tel:07080951392" style="text-decoration:none;"><button class="btn-hero-outline">📞 Call Us Today</button></a>
+      <button class="btn-cta-w" onclick="showPage('book')">📅 Book Appointment Now</button>
+      <a href="tel:07080951392" style="text-decoration:none;"><button class="btn-cta-o">📞 Call Us Today</button></a>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ ABOUT PAGE ═══════════════ -->
+<!-- ═══ ABOUT ═══ -->
 <div id="page-about" class="page">
   <div class="about-hero">
     <h2>About OCROWN Veterinary Hospital</h2>
     <p>Ibadan's trusted veterinary care facility providing expert, compassionate healthcare for all your beloved pets.</p>
   </div>
-  <div class="about-content">
-    <div class="about-grid">
-      <div class="about-card"><div class="aico">🏅</div><h3>Certified Excellence</h3><p>All our veterinarians are fully certified and regularly trained on the latest veterinary practices.</p></div>
-      <div class="about-card"><div class="aico">🔬</div><h3>Modern Equipment</h3><p>State-of-the-art diagnostic tools, in-house laboratory, and surgical theatre for comprehensive care.</p></div>
-      <div class="about-card"><div class="aico">❤️</div><h3>Compassionate Care</h3><p>We treat every pet as our own — with patience, love, and expert medical attention from the first visit.</p></div>
-      <div class="about-card"><div class="aico">🚑</div><h3>24/7 Emergency</h3><p>Round-the-clock emergency services because your pet's health can't wait until morning.</p></div>
+  <div class="section"><div class="sec-wrap">
+    <div class="about-cards">
+      <div class="about-card"><div class="ai">🏅</div><h3>Certified Excellence</h3><p>All our veterinarians are fully certified and regularly trained on the latest veterinary practices.</p></div>
+      <div class="about-card"><div class="ai">🔬</div><h3>Modern Equipment</h3><p>State-of-the-art diagnostic tools, in-house laboratory, and surgical theatre.</p></div>
+      <div class="about-card"><div class="ai">❤️</div><h3>Compassionate Care</h3><p>We treat every pet as our own — with patience, love, and expert medical attention.</p></div>
+      <div class="about-card"><div class="ai">🚑</div><h3>24/7 Emergency</h3><p>Round-the-clock emergency services because your pet's health can't wait.</p></div>
     </div>
-    <div class="mission-box">
+    <div class="mission">
       <h3>Our Mission</h3>
       <p>To provide every pet in Ibadan and beyond with the highest standard of veterinary care, delivered with compassion, integrity, and clinical excellence — because your pet deserves nothing less.</p>
     </div>
-  </div>
+  </div></div>
 </div>
 
-<!-- ═══════════════ BOOK PAGE ═══════════════ -->
+<!-- ═══ BOOK ═══ -->
 <div id="page-book" class="page">
-  <div class="book-hero">
-    <h2>Book an Appointment</h2>
-    <p>Fill the form below to schedule your visit</p>
-  </div>
-  <div class="book-content">
-    <div class="booking-card">
-      <div class="progress-bar">
-        <div class="prog-step active" id="pb1">🐾 Pet</div>
-        <div class="prog-step" id="pb2">👨‍⚕️ Vet</div>
-        <div class="prog-step" id="pb3">📅 Date</div>
-        <div class="prog-step" id="pb4">📋 Details</div>
-        <div class="prog-step" id="pb5">✅ Confirm</div>
+  <div class="book-hero"><h2>Book an Appointment</h2><p>Fill the form below to schedule your visit</p></div>
+  <div class="book-wrap">
+    <div class="book-card">
+      <div class="prog">
+        <div class="pb active" id="pb1">🐾 Pet</div>
+        <div class="pb" id="pb2">👨‍⚕️ Vet</div>
+        <div class="pb" id="pb3">📅 Date</div>
+        <div class="pb" id="pb4">📋 Details</div>
+        <div class="pb" id="pb5">✅ Confirm</div>
       </div>
 
-      <!-- Step 1 -->
-      <div class="form-step active" id="bs1">
+      <div class="fstep active" id="bs1">
         <h3>🐾 Select Your Pet Type</h3>
-        <div class="pet-select-grid">
-          <div class="ps-item" onclick="selPet(this,'Dog')"><div class="e">🐕</div><div class="n">Dog</div></div>
-          <div class="ps-item" onclick="selPet(this,'Cat')"><div class="e">🐈</div><div class="n">Cat</div></div>
-          <div class="ps-item" onclick="selPet(this,'Bird')"><div class="e">🦜</div><div class="n">Bird</div></div>
-          <div class="ps-item" onclick="selPet(this,'Rabbit')"><div class="e">🐇</div><div class="n">Rabbit</div></div>
-          <div class="ps-item" onclick="selPet(this,'Fish')"><div class="e">🐟</div><div class="n">Fish</div></div>
-          <div class="ps-item" onclick="selPet(this,'Reptile')"><div class="e">🦎</div><div class="n">Reptile</div></div>
-          <div class="ps-item" onclick="selPet(this,'Guinea Pig')"><div class="e">🐹</div><div class="n">Guinea Pig</div></div>
-          <div class="ps-item" onclick="selPet(this,'Other')"><div class="e">🐾</div><div class="n">Other</div></div>
+        <div class="ps-grid">
+          <div class="ps" onclick="selPet(this,'Dog')"><div class="e">🐕</div><div class="n">Dog</div></div>
+          <div class="ps" onclick="selPet(this,'Cat')"><div class="e">🐈</div><div class="n">Cat</div></div>
+          <div class="ps" onclick="selPet(this,'Bird')"><div class="e">🦜</div><div class="n">Bird</div></div>
+          <div class="ps" onclick="selPet(this,'Rabbit')"><div class="e">🐇</div><div class="n">Rabbit</div></div>
+          <div class="ps" onclick="selPet(this,'Fish')"><div class="e">🐟</div><div class="n">Fish</div></div>
+          <div class="ps" onclick="selPet(this,'Reptile')"><div class="e">🦎</div><div class="n">Reptile</div></div>
+          <div class="ps" onclick="selPet(this,'Guinea Pig')"><div class="e">🐹</div><div class="n">Guinea Pig</div></div>
+          <div class="ps" onclick="selPet(this,'Other')"><div class="e">🐾</div><div class="n">Other</div></div>
         </div>
-        <button class="btn-book primary" onclick="goStep(2)">Continue: Choose Vet →</button>
+        <button class="bbtn primary" onclick="goS(2)">Continue: Choose Vet →</button>
       </div>
 
-      <!-- Step 2 -->
-      <div class="form-step" id="bs2">
+      <div class="fstep" id="bs2">
         <h3>👨‍⚕️ Choose a Veterinarian</h3>
-        <div class="vet-pick-grid">
-          <div class="vp-item" onclick="selVet(this,'Dr. Adewale Okafor')"><div class="vp-av">AO</div><div class="vp-info"><h4>Dr. Adewale Okafor</h4><p>General & Surgery</p></div></div>
-          <div class="vp-item" onclick="selVet(this,'Dr. Fatima Bello')"><div class="vp-av" style="background:#0d9488;">FB</div><div class="vp-info"><h4>Dr. Fatima Bello</h4><p>Cats & Small Pets</p></div></div>
-          <div class="vp-item" onclick="selVet(this,'Dr. Chukwuemeka Nwosu')"><div class="vp-av" style="background:#7c3aed;">CN</div><div class="vp-info"><h4>Dr. Chukwuemeka Nwosu</h4><p>Dental & Surgery</p></div></div>
-          <div class="vp-item" onclick="selVet(this,'Dr. Yusuf Ibrahim')"><div class="vp-av" style="background:#ea580c;">YI</div><div class="vp-info"><h4>Dr. Yusuf Ibrahim</h4><p>Birds & Exotic</p></div></div>
+        <div class="vp-grid">
+          <div class="vp" onclick="selVet(this,'Dr. Adewale Okafor')"><div class="va">AO</div><div class="vi"><h4>Dr. Adewale Okafor</h4><p>General & Surgery</p></div></div>
+          <div class="vp" onclick="selVet(this,'Dr. Fatima Bello')"><div class="va" style="background:#0d9488;">FB</div><div class="vi"><h4>Dr. Fatima Bello</h4><p>Cats & Small Pets</p></div></div>
+          <div class="vp" onclick="selVet(this,'Dr. Chukwuemeka Nwosu')"><div class="va" style="background:#7c3aed;">CN</div><div class="vi"><h4>Dr. Chukwuemeka Nwosu</h4><p>Dental & Surgery</p></div></div>
+          <div class="vp" onclick="selVet(this,'Dr. Yusuf Ibrahim')"><div class="va" style="background:#ea580c;">YI</div><div class="vi"><h4>Dr. Yusuf Ibrahim</h4><p>Birds & Exotic</p></div></div>
         </div>
-        <button class="btn-book back" onclick="goStep(1)">← Back</button>
-        <button class="btn-book primary" onclick="goStep(3)">Continue: Date & Time →</button>
+        <button class="bbtn back" onclick="goS(1)">← Back</button>
+        <button class="bbtn primary" onclick="goS(3)">Continue: Date & Time →</button>
       </div>
 
-      <!-- Step 3 -->
-      <div class="form-step" id="bs3">
+      <div class="fstep" id="bs3">
         <h3>📅 Select Date & Time</h3>
-        <div class="form-group"><label>Appointment Date *</label><input type="date" id="b-date"/></div>
-        <div class="form-group"><label>Consultation Type</label>
+        <div class="fg"><label>Appointment Date *</label><input type="date" id="b-date"/></div>
+        <div class="fg"><label>Consultation Type</label>
           <select id="b-type"><option>In-Person Visit</option><option>Follow-up</option><option>Emergency</option><option>Vaccination Only</option><option>Surgery Consultation</option></select>
         </div>
-        <div class="form-group"><label>Available Time Slots</label>
-          <div class="time-grid">
-            <div class="time-item" onclick="selTime(this,'8:00 AM')">8:00 AM</div>
-            <div class="time-item" onclick="selTime(this,'9:00 AM')">9:00 AM</div>
-            <div class="time-item" onclick="selTime(this,'10:00 AM')">10:00 AM</div>
-            <div class="time-item" onclick="selTime(this,'11:00 AM')">11:00 AM</div>
-            <div class="time-item" onclick="selTime(this,'12:00 PM')">12:00 PM</div>
-            <div class="time-item" onclick="selTime(this,'2:00 PM')">2:00 PM</div>
-            <div class="time-item" onclick="selTime(this,'3:00 PM')">3:00 PM</div>
-            <div class="time-item" onclick="selTime(this,'4:00 PM')">4:00 PM</div>
-            <div class="time-item" onclick="selTime(this,'5:00 PM')">5:00 PM</div>
+        <div class="fg"><label>Available Time Slots</label>
+          <div class="ts">
+            <div class="tsl" onclick="selTime(this,'8:00 AM')">8:00 AM</div>
+            <div class="tsl" onclick="selTime(this,'9:00 AM')">9:00 AM</div>
+            <div class="tsl" onclick="selTime(this,'10:00 AM')">10:00 AM</div>
+            <div class="tsl" onclick="selTime(this,'11:00 AM')">11:00 AM</div>
+            <div class="tsl" onclick="selTime(this,'12:00 PM')">12:00 PM</div>
+            <div class="tsl" onclick="selTime(this,'2:00 PM')">2:00 PM</div>
+            <div class="tsl" onclick="selTime(this,'3:00 PM')">3:00 PM</div>
+            <div class="tsl" onclick="selTime(this,'4:00 PM')">4:00 PM</div>
+            <div class="tsl" onclick="selTime(this,'5:00 PM')">5:00 PM</div>
           </div>
         </div>
-        <button class="btn-book back" onclick="goStep(2)">← Back</button>
-        <button class="btn-book primary" onclick="goStep(4)">Continue: Pet Details →</button>
+        <button class="bbtn back" onclick="goS(2)">← Back</button>
+        <button class="bbtn primary" onclick="goS(4)">Continue: Pet Details →</button>
       </div>
 
-      <!-- Step 4 -->
-      <div class="form-step" id="bs4">
+      <div class="fstep" id="bs4">
         <h3>🐾 Enter Pet Details</h3>
-        <div class="form-row">
-          <div class="form-group"><label>Owner Full Name *</label><input type="text" id="b-owner" placeholder="Your full name"/></div>
-          <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="b-phone" placeholder="07080000000"/></div>
+        <div class="frow">
+          <div class="fg"><label>Owner Full Name *</label><input type="text" id="b-own" placeholder="Your full name"/></div>
+          <div class="fg"><label>Phone / WhatsApp *</label><input type="tel" id="b-ph" placeholder="07080000000"/></div>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label>Pet Name *</label><input type="text" id="b-petname" placeholder="e.g. Buddy"/></div>
-          <div class="form-group"><label>Pet Age</label><input type="text" id="b-petage" placeholder="e.g. 2 years"/></div>
+        <div class="frow">
+          <div class="fg"><label>Pet Name *</label><input type="text" id="b-pn" placeholder="e.g. Buddy"/></div>
+          <div class="fg"><label>Pet Age</label><input type="text" id="b-pa" placeholder="e.g. 2 years"/></div>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label>Breed / Species</label><input type="text" id="b-breed" placeholder="e.g. Golden Retriever"/></div>
-          <div class="form-group"><label>Gender</label><select id="b-gender"><option>Male</option><option>Female</option></select></div>
+        <div class="frow">
+          <div class="fg"><label>Breed / Species</label><input type="text" id="b-br" placeholder="e.g. Golden Retriever"/></div>
+          <div class="fg"><label>Gender</label><select id="b-gn"><option>Male</option><option>Female</option></select></div>
         </div>
-        <div class="form-group"><label>Medical History / Current Symptoms *</label><textarea id="b-symp" placeholder="Describe any symptoms or reason for visit..."></textarea></div>
-        <button class="btn-book back" onclick="goStep(3)">← Back</button>
-        <button class="btn-book primary" onclick="goStep(5)">Review Booking →</button>
+        <div class="fg"><label>Medical History / Current Symptoms *</label><textarea id="b-sy" placeholder="Describe any symptoms or reason for visit..."></textarea></div>
+        <button class="bbtn back" onclick="goS(3)">← Back</button>
+        <button class="bbtn primary" onclick="goS(5)">Review Booking →</button>
       </div>
 
-      <!-- Step 5 -->
-      <div class="form-step" id="bs5">
+      <div class="fstep" id="bs5">
         <h3>✅ Confirm Your Appointment</h3>
-        <div class="confirm-summary" id="b-summary"></div>
-        <p style="font-size:.83rem;color:#888;margin-bottom:16px;">✅ I confirm the information provided is accurate and I agree to OCROWN's appointment policy.</p>
-        <button class="btn-book back" onclick="goStep(4)">← Back</button>
-        <button class="btn-book primary" id="confirm-btn" onclick="confirmBooking()">🎉 Confirm Booking</button>
+        <div class="csum" id="b-sum"></div>
+        <p style="font-size:.81rem;color:#888;margin-bottom:14px;">✅ I confirm the information is accurate and I agree to OCROWN's appointment policy.</p>
+        <button class="bbtn back" onclick="goS(4)">← Back</button>
+        <button class="bbtn primary" id="cbtn" onclick="confirmBook()">🎉 Confirm Booking</button>
       </div>
 
-      <!-- Success -->
-      <div class="form-step" id="bs-success">
-        <div class="success-wrap">
-          <div class="big-icon">🎉</div>
+      <div class="fstep" id="bs-s">
+        <div class="succ">
+          <div class="si">🎉</div>
           <h3>Booking Confirmed!</h3>
-          <p>Your appointment has been successfully booked at OCROWN Veterinary Hospital.<br>You will receive a confirmation via <strong>WhatsApp</strong> shortly.</p>
-          <div class="booking-ticket">
-            <div class="bt-label">Booking Reference</div>
-            <div class="bt-ref" id="bt-ref">#OCV-0001</div>
-            <div id="bt-details" style="margin-top:12px;font-size:.85rem;color:#666;line-height:1.9;"></div>
+          <p>Your appointment has been successfully booked.<br>You will receive a confirmation via <strong>WhatsApp</strong> shortly.</p>
+          <div class="ticket">
+            <div class="t-lbl">Booking Reference</div>
+            <div class="t-ref" id="t-ref">#OCV-0001</div>
+            <div id="t-det" style="margin-top:10px;font-size:.84rem;color:#666;line-height:1.9;"></div>
           </div>
-          <button class="btn-book primary" onclick="resetBooking()">Book Another Appointment</button>
+          <button class="bbtn primary" onclick="resetBook()">Book Another Appointment</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ CONTACT PAGE ═══════════════ -->
+<!-- ═══ CONTACT ═══ -->
 <div id="page-contact" class="page">
-  <div class="contact-hero">
-    <h2>Contact Us</h2>
-    <p>We're here to help you and your pet. Reach out anytime.</p>
-  </div>
-  <div class="contact-content">
-    <div class="contact-info-cards">
-      <div class="contact-card"><div class="cc-icon">📍</div><div><h4>Address</h4><p>Ibadan, Oyo State, Nigeria</p></div></div>
-      <div class="contact-card"><div class="cc-icon">📞</div><div><h4>Phone</h4><p><a href="tel:07080951392">07080951392</a></p></div></div>
-      <div class="contact-card"><div class="cc-icon">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/2347080951392">Chat with us</a></p></div></div>
-      <div class="contact-card"><div class="cc-icon">✉️</div><div><h4>Email</h4><p><a href="mailto:ocrownveterinaryhospital@gmail.com">ocrownveterinaryhospital@gmail.com</a></p></div></div>
-      <div class="contact-card"><div class="cc-icon">🕐</div><div><h4>Working Hours</h4><p>Mon–Sat: 8:00 AM – 8:00 PM<br>Emergency: 24/7</p></div></div>
+  <div class="contact-hero"><h2>Contact Us</h2><p>We're here to help you and your pet. Reach out anytime.</p></div>
+  <div class="contact-body">
+    <div class="cinfo">
+      <div class="ccard"><div class="ci">📍</div><div><h4>Address</h4><p>Ibadan, Oyo State, Nigeria</p></div></div>
+      <div class="ccard"><div class="ci">📞</div><div><h4>Phone</h4><p><a href="tel:07080951392">07080951392</a></p></div></div>
+      <div class="ccard"><div class="ci">💬</div><div><h4>WhatsApp</h4><p><a href="https://wa.me/2347080951392">Chat with us</a></p></div></div>
+      <div class="ccard"><div class="ci">✉️</div><div><h4>Email</h4><p><a href="/cdn-cgi/l/email-protection#f09f93829f879e8695849582999e918289989f83809984919cb0979d91999cde939f9d"><span class="__cf_email__" data-cfemail="ef808c9d809881998a9b8a9d86818e9d9687809c9f869b8e83af88828e8683c18c8082">[email&#160;protected]</span></a></p></div></div>
+      <div class="ccard"><div class="ci">🕐</div><div><h4>Working Hours</h4><p>Mon–Sat: 8:00 AM – 8:00 PM<br>Emergency: 24/7</p></div></div>
     </div>
-    <div class="contact-form-box">
+    <div class="cform-box">
       <h3>Send Us a Message</h3>
-      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"/></div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="email@example.com"/></div>
-      <div class="form-group"><label>Phone</label><input type="tel" placeholder="07080000000"/></div>
-      <div class="form-group"><label>Subject</label>
-        <select><option>General Inquiry</option><option>Appointment Question</option><option>Emergency</option><option>Feedback</option><option>Partnership</option></select>
-      </div>
-      <div class="form-group"><label>Message</label><textarea placeholder="How can we help you and your pet?"></textarea></div>
-      <button class="btn-book primary" onclick="toast('✅ Message sent! We will get back to you shortly.')">Send Message 🐾</button>
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="email@example.com"/></div>
+      <div class="fg"><label>Phone</label><input type="tel" placeholder="07080000000"/></div>
+      <div class="fg"><label>Subject</label><select><option>General Inquiry</option><option>Appointment Question</option><option>Emergency</option><option>Feedback</option><option>Partnership</option></select></div>
+      <div class="fg"><label>Message</label><textarea placeholder="How can we help you and your pet?"></textarea></div>
+      <button class="bbtn primary" onclick="toast('✅ Message sent! We will get back to you shortly.')">Send Message 🐾</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ LOGIN PAGE (placeholder) ═══════════════ -->
+<!-- ═══ LOGIN ═══ -->
 <div id="page-login" class="page">
   <div style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:#f8fffe;">
-    <div style="background:#fff;border:1.5px solid #e8f5e9;border-radius:20px;padding:40px;max-width:420px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.08);">
+    <div style="background:#fff;border:1.5px solid #e8f5e9;border-radius:20px;padding:40px;max-width:420px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,.08);">
       <h2 style="font-weight:700;color:#1b4332;margin-bottom:6px;">Welcome Back 🐾</h2>
-      <p style="color:#888;font-size:.9rem;margin-bottom:28px;">Sign in to manage your pet appointments</p>
-      <div class="form-group"><label>Email Address</label><input type="email" placeholder="email@example.com"/></div>
-      <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••"/></div>
-      <button class="btn-book primary" onclick="toast('Patient login coming soon!')">Sign In</button>
-      <p style="text-align:center;margin-top:16px;font-size:.85rem;color:#888;">Don't have an account? <a onclick="toast('Registration coming soon!')" style="color:#2d6a4f;font-weight:700;cursor:pointer;">Sign up free</a></p>
+      <p style="color:#888;font-size:.88rem;margin-bottom:26px;">Sign in to manage your pet appointments</p>
+      <div class="fg"><label>Email Address</label><input type="email" placeholder="email@example.com"/></div>
+      <div class="fg"><label>Password</label><input type="password" placeholder="••••••••"/></div>
+      <button class="bbtn primary" onclick="toast('Patient login coming soon!')">Sign In</button>
+      <p style="text-align:center;margin-top:14px;font-size:.84rem;color:#888;">Don't have an account? <a onclick="toast('Registration coming soon!')" style="color:#2d6a4f;font-weight:700;cursor:pointer;">Sign up free</a></p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ ADMIN PANEL PAGE ═══════════════ -->
+<!-- ═══ REGISTER ═══ -->
+<div id="page-register" class="page">
+  <div style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;background:#f8fffe;">
+    <div style="background:#fff;border:1.5px solid #e8f5e9;border-radius:20px;padding:40px;max-width:420px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,.08);">
+      <h2 style="font-weight:700;color:#1b4332;margin-bottom:6px;">Create Account 🐾</h2>
+      <p style="color:#888;font-size:.88rem;margin-bottom:26px;">Register to book appointments for your pets</p>
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Your full name"/></div>
+      <div class="fg"><label>Email Address</label><input type="email" placeholder="email@example.com"/></div>
+      <div class="fg"><label>Phone / WhatsApp</label><input type="tel" placeholder="07080000000"/></div>
+      <div class="fg"><label>Password</label><input type="password" placeholder="••••••••"/></div>
+      <button class="bbtn primary" onclick="toast('Registration coming soon!')">Create Account</button>
+      <p style="text-align:center;margin-top:14px;font-size:.84rem;color:#888;">Already have an account? <a onclick="showPage('login')" style="color:#2d6a4f;font-weight:700;cursor:pointer;">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN ═══ -->
 <div id="page-admin" class="page">
-  <div class="admin-panel">
-    <div class="admin-topbar">
+  <div class="ap-wrap">
+    <div class="ap-bar">
       <div>
         <h1>🏥 OCROWN Admin Dashboard</h1>
-        <p><span class="live-dot"></span><span id="fb-live-status">Connecting to Firebase...</span></p>
+        <p><span class="ldot"></span><span id="fb-st">Connecting to Firebase...</span></p>
       </div>
       <div style="display:flex;gap:8px;">
-        <button class="act export" onclick="exportCSV()">⬇️ Export CSV</button>
-        <button class="act logout" onclick="adminLogout()">🚪 Logout</button>
+        <button class="ab exp" onclick="exportCSV()">⬇️ Export CSV</button>
+        <button class="ab lo" onclick="doLogout()">🚪 Logout</button>
       </div>
     </div>
-    <div class="admin-body">
-      <div class="admin-stats" id="a-stats"></div>
-      <div class="admin-card">
-        <div class="admin-card-header">
+    <div class="ap-body">
+      <div class="ap-stats" id="ap-stats"></div>
+      <div class="ap-card">
+        <div class="ap-card-head">
           <h3>All Appointments</h3>
-          <div class="tab-filters">
-            <div class="tab-f active" onclick="switchTab('all',this)">All</div>
-            <div class="tab-f" onclick="switchTab('pending',this)">⏳ Pending</div>
-            <div class="tab-f" onclick="switchTab('confirmed',this)">✅ Confirmed</div>
-            <div class="tab-f" onclick="switchTab('completed',this)">🏁 Completed</div>
-            <div class="tab-f" onclick="switchTab('cancelled',this)">❌ Cancelled</div>
+          <div class="tabs">
+            <div class="tab active" onclick="swTab('all',this)">All</div>
+            <div class="tab" onclick="swTab('pending',this)">⏳ Pending</div>
+            <div class="tab" onclick="swTab('confirmed',this)">✅ Confirmed</div>
+            <div class="tab" onclick="swTab('completed',this)">🏁 Completed</div>
+            <div class="tab" onclick="swTab('cancelled',this)">❌ Cancelled</div>
           </div>
         </div>
-        <div class="admin-toolbar">
-          <input type="text" id="a-search" placeholder="🔍  Search by name, pet, vet or reference..." oninput="renderTable()"/>
-          <select id="a-vet" onchange="renderTable()">
+        <div class="ap-tools">
+          <input type="text" id="ap-srch" placeholder="🔍  Search by name, pet, vet or reference..." oninput="renderTbl()"/>
+          <select id="ap-vet" onchange="renderTbl()">
             <option value="">All Vets</option>
             <option>Dr. Adewale Okafor</option>
             <option>Dr. Fatima Bello</option>
@@ -827,42 +795,42 @@ footer { background: #1b4332; color: #b7e4c7; padding: 60px 20px 24px; }
             <option>Dr. Yusuf Ibrahim</option>
           </select>
         </div>
-        <div class="table-wrap">
+        <div class="tbl-wrap">
           <table>
             <thead><tr><th>#</th><th>Reference</th><th>Patient</th><th>Pet</th><th>Vet</th><th>Date & Time</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="a-tbody"><tr class="loading-row"><td colspan="9"><span class="spinner"></span> Loading appointments from Firebase...</td></tr></tbody>
+            <tbody id="ap-tbody"><tr class="ldr"><td colspan="9"><span class="spin"></span> Loading appointments from Firebase...</td></tr></tbody>
           </table>
-          <div id="a-empty" class="empty-table" style="display:none;"><div style="font-size:3rem;margin-bottom:8px;">📋</div><p>No appointments found.</p></div>
+          <div id="ap-empty" class="empty-t" style="display:none;"><div style="font-size:3rem;margin-bottom:8px;">📋</div><p>No appointments found.</p></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
+<!-- FOOTER -->
 <footer id="main-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
+  <div class="ft-inner">
+    <div class="ft-brand">
       <h3>🏥 OCROWN Vet Hospital</h3>
       <p>Ibadan's trusted veterinary care. Professional, compassionate, and expert pet healthcare for all your beloved animals.</p>
-      <div class="footer-socials">
+      <div class="ft-socials">
         <a href="#">📘 Facebook</a>
         <a href="#">📷 Instagram</a>
         <a href="#">▶️ YouTube</a>
         <a href="https://wa.me/2347080951392">💬 WhatsApp</a>
       </div>
     </div>
-    <div class="footer-col">
+    <div class="ft-col">
       <h4>Quick Links</h4>
       <ul>
         <li><a onclick="showPage('home')">Home</a></li>
         <li><a onclick="showPage('about')">About Us</a></li>
-        <li><a onclick="showPage('home');setTimeout(()=>document.getElementById('vets-sec').scrollIntoView({behavior:'smooth'}),300)">Veterinarians</a></li>
+        <li><a onclick="scrollToVets()">Veterinarians</a></li>
         <li><a onclick="showPage('book')">Book Appointment</a></li>
         <li><a onclick="showPage('contact')">Contact</a></li>
       </ul>
     </div>
-    <div class="footer-col">
+    <div class="ft-col">
       <h4>Services</h4>
       <ul>
         <li><a>General Checkup</a></li>
@@ -873,7 +841,7 @@ footer { background: #1b4332; color: #b7e4c7; padding: 60px 20px 24px; }
         <li><a>Dental Care</a></li>
       </ul>
     </div>
-    <div class="footer-col">
+    <div class="ft-col">
       <h4>Contact</h4>
       <ul>
         <li><a>📍 Ibadan, Oyo State</a></li>
@@ -884,281 +852,260 @@ footer { background: #1b4332; color: #b7e4c7; padding: 60px 20px 24px; }
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">
+  <div class="ft-bot">
     <span>© 2025 OCROWN Veterinary Hospital. All rights reserved. Made with ❤️ for pets in Ibadan</span>
-    <!-- Hidden admin trigger - small lock icon, not obvious to visitors -->
-    <button class="admin-trigger" onclick="openAdminModal()" title="">🔒</button>
+    <span></span>
   </div>
 </footer>
 
-<script>
-// ═══════════ STATE ═══════════
-let currentStep = 1, currentTab = 'all';
-let allAppts = [], bookingRef = 100;
-const BD = {};
-const PE = {Dog:'🐕',Cat:'🐈',Bird:'🦜',Rabbit:'🐇',Fish:'🐟',Reptile:'🦎','Guinea Pig':'🐹',Other:'🐾'};
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ══ STATE ══
+let step=1, tab='all', appts=[], bkCtr=100;
+const BD={};
+const PE={Dog:'🐕',Cat:'🐈',Bird:'🦜',Rabbit:'🐇',Fish:'🐟',Reptile:'🦎','Guinea Pig':'🐹',Other:'🐾'};
+const A_EMAIL='ocrownveterinaryhospital@gmail.com';
+const A_PASS='Ocrown123';
 
-// ═══════════ ADMIN CREDENTIALS ═══════════
-const ADMIN_EMAIL = 'ocrownveterinaryhospital@gmail.com';
-const ADMIN_PASS  = 'Ocrown123';
-
-// ═══════════ PAGE NAVIGATION ═══════════
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  ['home','about','book','contact','login'].forEach(n => {
-    const el = document.getElementById('nl-' + n);
-    if (el) el.classList.toggle('active', n === id);
+// ══ NAVIGATION ══
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  ['home','about','book','contact','login'].forEach(n=>{
+    const el=document.getElementById('nl-'+n);
+    if(el) el.classList.toggle('active',n===id);
   });
-  const hideFooterNav = id === 'admin';
-  document.getElementById('main-footer').style.display = hideFooterNav ? 'none' : 'block';
-  document.getElementById('main-nav').style.display = hideFooterNav ? 'none' : 'block';
-  window.scrollTo(0, 0);
-  if (id === 'admin') initAdminPanel();
+  const isAdmin=id==='admin';
+  document.getElementById('main-footer').style.display=isAdmin?'none':'block';
+  document.getElementById('main-nav').style.display=isAdmin?'none':'block';
+  document.getElementById('topbar').style.display=isAdmin?'none':'block';
+  window.scrollTo(0,0);
+  if(id==='admin') initAdmin();
 }
 
-// ═══════════ HOME PET ═══════════
-function selHomePet(el, t) {
-  document.querySelectorAll('#page-home .pet-type').forEach(c => c.classList.remove('active'));
-  el.classList.add('active'); BD.pet = t;
+function scrollToVets(){
+  showPage('home');
+  setTimeout(()=>{
+    const el=document.getElementById('vets-section');
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },300);
 }
 
-// ═══════════ BOOKING ═══════════
-function selPet(el, t) {
-  document.querySelectorAll('#bs1 .ps-item').forEach(c => c.classList.remove('sel'));
-  el.classList.add('sel'); BD.pet = t;
-}
-function selVet(el, n) {
-  document.querySelectorAll('.vp-item').forEach(v => v.classList.remove('sel'));
-  el.classList.add('sel'); BD.vet = n;
-}
-function selTime(el, t) {
-  document.querySelectorAll('.time-item').forEach(s => s.classList.remove('sel'));
-  el.classList.add('sel'); BD.time = t;
+function toggleMobileMenu(){
+  const nl=document.querySelector('.nav-links');
+  nl.style.display=nl.style.display==='flex'?'none':'flex';
+  nl.style.flexDirection='column';
+  nl.style.position='absolute';
+  nl.style.top='72px';
+  nl.style.left='0';
+  nl.style.right='0';
+  nl.style.background='#fff';
+  nl.style.padding='10px 20px';
+  nl.style.borderBottom='1px solid #e8e8e8';
+  nl.style.zIndex='1000';
 }
 
-function goStep(n) {
-  if (n===2 && !BD.pet) { toast('⚠️ Please select a pet type.'); return; }
-  if (n===3 && !BD.vet) { toast('⚠️ Please choose a veterinarian.'); return; }
-  if (n===4) {
-    if (!document.getElementById('b-date').value) { toast('⚠️ Please select a date.'); return; }
-    if (!BD.time) { toast('⚠️ Please select a time slot.'); return; }
-    BD.date = document.getElementById('b-date').value;
-    BD.type = document.getElementById('b-type').value;
+// ══ HOME PET ══
+function selHomePet(el,t){
+  document.querySelectorAll('#page-home .pet-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active'); BD.pet=t;
+}
+
+// ══ BOOKING ══
+function selPet(el,t){document.querySelectorAll('#bs1 .ps').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');BD.pet=t;}
+function selVet(el,n){document.querySelectorAll('.vp').forEach(v=>v.classList.remove('sel'));el.classList.add('sel');BD.vet=n;}
+function selTime(el,t){document.querySelectorAll('.tsl').forEach(s=>s.classList.remove('sel'));el.classList.add('sel');BD.time=t;}
+
+function goS(n){
+  if(n===2&&!BD.pet){toast('⚠️ Please select a pet type.');return;}
+  if(n===3&&!BD.vet){toast('⚠️ Please choose a veterinarian.');return;}
+  if(n===4){
+    if(!document.getElementById('b-date').value){toast('⚠️ Please select a date.');return;}
+    if(!BD.time){toast('⚠️ Please select a time slot.');return;}
+    BD.date=document.getElementById('b-date').value;
+    BD.type=document.getElementById('b-type').value;
   }
-  if (n===5) {
-    const on = document.getElementById('b-owner').value.trim();
-    const op = document.getElementById('b-phone').value.trim();
-    const pn = document.getElementById('b-petname').value.trim();
-    const sy = document.getElementById('b-symp').value.trim();
-    if (!on || !op || !pn || !sy) { toast('⚠️ Please fill all required fields.'); return; }
-    BD.owner = on; BD.phone = op; BD.petName = pn;
-    BD.petAge = document.getElementById('b-petage').value;
-    BD.breed = document.getElementById('b-breed').value;
-    BD.gender = document.getElementById('b-gender').value;
-    BD.symp = sy;
-    buildSummary();
+  if(n===5){
+    const o=document.getElementById('b-own').value.trim();
+    const p=document.getElementById('b-ph').value.trim();
+    const pn=document.getElementById('b-pn').value.trim();
+    const sy=document.getElementById('b-sy').value.trim();
+    if(!o||!p||!pn||!sy){toast('⚠️ Please fill all required fields.');return;}
+    BD.owner=o;BD.phone=p;BD.petName=pn;
+    BD.petAge=document.getElementById('b-pa').value;
+    BD.breed=document.getElementById('b-br').value;
+    BD.gender=document.getElementById('b-gn').value;
+    BD.symp=sy;
+    buildSum();
   }
   setStep(n);
 }
 
-function setStep(n) {
-  currentStep = n;
-  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-  document.getElementById('bs' + (n > 5 ? '-success' : n)).classList.add('active');
-  for (let i = 1; i <= 5; i++) {
-    const b = document.getElementById('pb' + i);
-    if (!b) continue;
+function setStep(n){
+  step=n;
+  document.querySelectorAll('.fstep').forEach(s=>s.classList.remove('active'));
+  document.getElementById('bs'+(n>5?'-s':n)).classList.add('active');
+  for(let i=1;i<=5;i++){
+    const b=document.getElementById('pb'+i);
+    if(!b)continue;
     b.classList.remove('active','done');
-    if (i < n) b.classList.add('done');
-    else if (i === n) b.classList.add('active');
+    if(i<n)b.classList.add('done');
+    else if(i===n)b.classList.add('active');
   }
 }
 
-function buildSummary() {
-  document.getElementById('b-summary').innerHTML = `
-    <div class="cs-row"><span class="cs-label">Owner</span><span class="cs-value">${BD.owner}</span></div>
-    <div class="cs-row"><span class="cs-label">Phone</span><span class="cs-value">${BD.phone}</span></div>
-    <div class="cs-row"><span class="cs-label">Pet</span><span class="cs-value">${PE[BD.pet]||'🐾'} ${BD.petName} (${BD.pet})</span></div>
-    <div class="cs-row"><span class="cs-label">Breed</span><span class="cs-value">${BD.breed||'—'}</span></div>
-    <div class="cs-row"><span class="cs-label">Vet</span><span class="cs-value">${BD.vet}</span></div>
-    <div class="cs-row"><span class="cs-label">Date</span><span class="cs-value">${BD.date}</span></div>
-    <div class="cs-row"><span class="cs-label">Time</span><span class="cs-value">${BD.time}</span></div>
-    <div class="cs-row"><span class="cs-label">Type</span><span class="cs-value">${BD.type}</span></div>
-    <div class="cs-row"><span class="cs-label">Symptoms</span><span class="cs-value">${BD.symp}</span></div>`;
+function buildSum(){
+  document.getElementById('b-sum').innerHTML=`
+    <div class="cr"><span class="cl">Owner</span><span class="cv">${BD.owner}</span></div>
+    <div class="cr"><span class="cl">Phone</span><span class="cv">${BD.phone}</span></div>
+    <div class="cr"><span class="cl">Pet</span><span class="cv">${PE[BD.pet]||'🐾'} ${BD.petName} (${BD.pet})</span></div>
+    <div class="cr"><span class="cl">Breed</span><span class="cv">${BD.breed||'—'}</span></div>
+    <div class="cr"><span class="cl">Vet</span><span class="cv">${BD.vet}</span></div>
+    <div class="cr"><span class="cl">Date</span><span class="cv">${BD.date}</span></div>
+    <div class="cr"><span class="cl">Time</span><span class="cv">${BD.time}</span></div>
+    <div class="cr"><span class="cl">Type</span><span class="cv">${BD.type}</span></div>
+    <div class="cr"><span class="cl">Symptoms</span><span class="cv">${BD.symp}</span></div>`;
 }
 
-async function confirmBooking() {
-  const btn = document.getElementById('confirm-btn');
-  btn.disabled = true; btn.textContent = '⏳ Saving...';
-  bookingRef++;
-  const ref = 'OCV-' + String(bookingRef).padStart(4,'0');
-  const appt = {
-    id: ref, owner: BD.owner, phone: BD.phone,
-    petD: (PE[BD.pet]||'🐾')+' '+BD.petName+' ('+BD.pet+')',
-    petN: BD.petName, petT: BD.pet, vet: BD.vet,
-    date: BD.date, time: BD.time, type: BD.type,
-    status: 'pending', symp: BD.symp, ts: Date.now()
-  };
-  if (window._fbReady && window._db) {
-    try { await window._push(window._ref(window._db,'appointments'), appt); }
-    catch(e) { allAppts.unshift(appt); }
-  } else { allAppts.unshift(appt); }
-  document.getElementById('bt-ref').textContent = '#' + ref;
-  document.getElementById('bt-details').innerHTML =
-    `👤 ${BD.owner} | 📞 ${BD.phone}<br>🐾 ${BD.petName} (${BD.pet}) | 👨‍⚕️ ${BD.vet}<br>📅 ${BD.date} at ${BD.time} | 🩺 ${BD.type}`;
-  btn.disabled = false; btn.textContent = '🎉 Confirm Booking';
-  setStep('success'); toast('🎉 Appointment booked successfully!');
+async function confirmBook(){
+  const btn=document.getElementById('cbtn');
+  btn.disabled=true;btn.textContent='⏳ Saving...';
+  bkCtr++;
+  const id='OCV-'+String(bkCtr).padStart(4,'0');
+  const a={id,owner:BD.owner,phone:BD.phone,
+    petD:(PE[BD.pet]||'🐾')+' '+BD.petName+' ('+BD.pet+')',
+    petN:BD.petName,petT:BD.pet,vet:BD.vet,
+    date:BD.date,time:BD.time,type:BD.type,
+    status:'pending',symp:BD.symp,ts:Date.now()};
+  if(window._fbReady&&window._db){
+    try{await window._push(window._ref(window._db,'appointments'),a);}
+    catch(e){appts.unshift(a);}
+  }else{appts.unshift(a);}
+  document.getElementById('t-ref').textContent='#'+id;
+  document.getElementById('t-det').innerHTML=`👤 ${BD.owner} | 📞 ${BD.phone}<br>🐾 ${BD.petName} (${BD.pet}) | 👨‍⚕️ ${BD.vet}<br>📅 ${BD.date} at ${BD.time} | 🩺 ${BD.type}`;
+  btn.disabled=false;btn.textContent='🎉 Confirm Booking';
+  setStep('s');toast('🎉 Appointment booked successfully!');
 }
 
-function resetBooking() {
-  Object.keys(BD).forEach(k => delete BD[k]);
-  document.querySelectorAll('.ps-item,.vp-item,.time-item').forEach(el => el.classList.remove('sel'));
-  ['b-owner','b-phone','b-petname','b-petage','b-breed','b-symp'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+function resetBook(){
+  Object.keys(BD).forEach(k=>delete BD[k]);
+  document.querySelectorAll('.ps,.vp,.tsl').forEach(el=>el.classList.remove('sel'));
+  ['b-own','b-ph','b-pn','b-pa','b-br','b-sy'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   setStep(1);
 }
 
-// ═══════════ ADMIN MODAL ═══════════
-function openAdminModal() {
-  document.getElementById('adminLoginModal').classList.add('open');
-  setTimeout(() => document.getElementById('a-email').focus(), 100);
+// ══ ADMIN MODAL ══
+function openAml(){document.getElementById('aml').classList.add('open');setTimeout(()=>document.getElementById('a-em').focus(),100);}
+function closeAml(){document.getElementById('aml').classList.remove('open');document.getElementById('a-em').value='';document.getElementById('a-pw').value='';}
+function doLogin(){
+  const e=document.getElementById('a-em').value.trim();
+  const p=document.getElementById('a-pw').value.trim();
+  if(e===A_EMAIL&&p===A_PASS){closeAml();showPage('admin');toast('✅ Welcome, Admin!');}
+  else toast('❌ Incorrect email or password.');
 }
-function closeAdminModal() {
-  document.getElementById('adminLoginModal').classList.remove('open');
-  document.getElementById('a-email').value = '';
-  document.getElementById('a-pass').value = '';
-}
-function doAdminLogin() {
-  const email = document.getElementById('a-email').value.trim();
-  const pass = document.getElementById('a-pass').value.trim();
-  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-    closeAdminModal();
-    showPage('admin');
-    toast('✅ Welcome, Admin!');
-  } else {
-    toast('❌ Incorrect email or password.');
-  }
-}
-function adminLogout() { showPage('home'); toast('👋 Logged out successfully.'); }
+function doLogout(){showPage('home');toast('👋 Logged out successfully.');}
 
-// ═══════════ ADMIN PANEL ═══════════
-function initAdminPanel() {
-  if (window._fbReady && window._db) {
-    window._onValue(window._ref(window._db, 'appointments'), snap => {
-      allAppts = [];
-      snap.forEach(child => allAppts.unshift({ _key: child.key, ...child.val() }));
-      document.getElementById('fb-live-status').textContent = 'Live — syncing across all devices';
-      renderStats(); renderTable();
+// ══ ADMIN PANEL ══
+function initAdmin(){
+  if(window._fbReady&&window._db){
+    window._onValue(window._ref(window._db,'appointments'),snap=>{
+      appts=[];
+      snap.forEach(child=>appts.unshift({_key:child.key,...child.val()}));
+      document.getElementById('fb-st').textContent='🟢 Live — syncing across all devices';
+      renderStats();renderTbl();
     });
-  } else {
-    document.getElementById('fb-live-status').textContent = 'Demo mode';
-    renderStats(); renderTable();
+  }else{
+    document.getElementById('fb-st').textContent='⚠️ Demo mode';
+    renderStats();renderTbl();
   }
 }
 
-function renderStats() {
-  const t=allAppts.length, p=allAppts.filter(a=>a.status==='pending').length;
-  const c=allAppts.filter(a=>a.status==='confirmed').length, d=allAppts.filter(a=>a.status==='completed').length;
-  document.getElementById('a-stats').innerHTML = `
-    <div class="a-stat"><div class="a-stat-icon green">📅</div><div><div class="a-stat-num">${t}</div><div class="a-stat-label">Total Bookings</div></div></div>
-    <div class="a-stat"><div class="a-stat-icon yellow">⏳</div><div><div class="a-stat-num">${p}</div><div class="a-stat-label">Pending</div></div></div>
-    <div class="a-stat"><div class="a-stat-icon green">✅</div><div><div class="a-stat-num">${c}</div><div class="a-stat-label">Confirmed</div></div></div>
-    <div class="a-stat"><div class="a-stat-icon blue">🏁</div><div><div class="a-stat-num">${d}</div><div class="a-stat-label">Completed</div></div></div>`;
+function renderStats(){
+  const t=appts.length,p=appts.filter(a=>a.status==='pending').length;
+  const c=appts.filter(a=>a.status==='confirmed').length,d=appts.filter(a=>a.status==='completed').length;
+  document.getElementById('ap-stats').innerHTML=`
+    <div class="ast"><div class="ast-ico g">📅</div><div><div class="ast-n">${t}</div><div class="ast-l">Total Bookings</div></div></div>
+    <div class="ast"><div class="ast-ico y">⏳</div><div><div class="ast-n">${p}</div><div class="ast-l">Pending</div></div></div>
+    <div class="ast"><div class="ast-ico g">✅</div><div><div class="ast-n">${c}</div><div class="ast-l">Confirmed</div></div></div>
+    <div class="ast"><div class="ast-ico b">🏁</div><div><div class="ast-n">${d}</div><div class="ast-l">Completed</div></div></div>`;
 }
 
-function switchTab(t, el) {
-  currentTab = t;
-  document.querySelectorAll('.tab-f').forEach(x => x.classList.remove('active'));
-  el.classList.add('active'); renderTable();
-}
+function swTab(t,el){tab=t;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderTbl();}
 
-function renderTable() {
-  const srch = (document.getElementById('a-search')?.value||'').toLowerCase();
-  const fv = document.getElementById('a-vet')?.value||'';
-  const filtered = allAppts.filter(a => {
-    const mt = currentTab==='all' || a.status===currentTab;
-    const ms = !srch || (a.owner||'').toLowerCase().includes(srch)||(a.petN||'').toLowerCase().includes(srch)||(a.vet||'').toLowerCase().includes(srch)||(a.id||'').toLowerCase().includes(srch);
-    const mv = !fv || a.vet===fv;
-    return mt && ms && mv;
+function renderTbl(){
+  const srch=(document.getElementById('ap-srch')?.value||'').toLowerCase();
+  const fv=document.getElementById('ap-vet')?.value||'';
+  const fl=appts.filter(a=>{
+    const mt=tab==='all'||a.status===tab;
+    const ms=!srch||(a.owner||'').toLowerCase().includes(srch)||(a.petN||'').toLowerCase().includes(srch)||(a.vet||'').toLowerCase().includes(srch)||(a.id||'').toLowerCase().includes(srch);
+    const mv=!fv||a.vet===fv;
+    return mt&&ms&&mv;
   });
-  const tbody = document.getElementById('a-tbody');
-  const empty = document.getElementById('a-empty');
-  if (!filtered.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-  tbody.innerHTML = filtered.map((a,i) => {
-    const key = a._key||a.id;
-    const bdg = `<span class="status-badge ${a.status}">${a.status.charAt(0).toUpperCase()+a.status.slice(1)}</span>`;
-    let acts = '<span style="color:#ccc;font-size:.75rem;">—</span>';
-    if (a.status==='pending') acts=`<button class="act approve" onclick="chgStatus('${key}','confirmed')">Approve</button><button class="act cancel" onclick="chgStatus('${key}','cancelled')">Cancel</button>`;
-    else if (a.status==='confirmed') acts=`<button class="act done" onclick="chgStatus('${key}','completed')">Done</button><button class="act cancel" onclick="chgStatus('${key}','cancelled')">Cancel</button>`;
+  const tb=document.getElementById('ap-tbody');
+  const em=document.getElementById('ap-empty');
+  if(!fl.length){tb.innerHTML='';em.style.display='block';return;}
+  em.style.display='none';
+  tb.innerHTML=fl.map((a,i)=>{
+    const key=a._key||a.id;
+    const bdg=`<span class="sbdg ${a.status}">${a.status.charAt(0).toUpperCase()+a.status.slice(1)}</span>`;
+    let acts='<span style="color:#ccc;font-size:.72rem;">—</span>';
+    if(a.status==='pending') acts=`<button class="ab ap" onclick="chgSt('${key}','confirmed')">Approve</button><button class="ab cn" onclick="chgSt('${key}','cancelled')">Cancel</button>`;
+    else if(a.status==='confirmed') acts=`<button class="ab dn" onclick="chgSt('${key}','completed')">Done</button><button class="ab cn" onclick="chgSt('${key}','cancelled')">Cancel</button>`;
     return `<tr>
-      <td>${i+1}</td>
-      <td><strong>#${a.id||'—'}</strong></td>
+      <td>${i+1}</td><td><strong>#${a.id||'—'}</strong></td>
       <td><strong>${a.owner}</strong><br><small style="color:#888;">${a.phone}</small></td>
       <td>${a.petD||a.petN}</td>
-      <td style="white-space:nowrap;font-size:.8rem;">${a.vet}</td>
+      <td style="white-space:nowrap;font-size:.79rem;">${a.vet}</td>
       <td style="white-space:nowrap;">${a.date}<br><small style="color:#888;">${a.time}</small></td>
-      <td style="font-size:.78rem;">${a.type}</td>
+      <td style="font-size:.77rem;">${a.type}</td>
       <td>${bdg}</td>
-      <td><div class="action-wrap"><button class="act view" onclick="viewAppt('${key}')">View</button>${acts}</div></td>
+      <td><div class="abts"><button class="ab vw" onclick="viewA('${key}')">View</button>${acts}</div></td>
     </tr>`;
   }).join('');
 }
 
-async function chgStatus(key, status) {
-  if (window._fbReady && window._db) {
-    try { await window._update(window._ref(window._db,'appointments/'+key), {status}); }
-    catch(e) { localChg(key, status); renderStats(); renderTable(); }
-  } else { localChg(key, status); renderStats(); renderTable(); }
-  toast('✅ Status updated to ' + status + '!');
-  closeDetailModal();
+async function chgSt(key,status){
+  if(window._fbReady&&window._db){
+    try{await window._update(window._ref(window._db,'appointments/'+key),{status});}
+    catch(e){localChg(key,status);renderStats();renderTbl();}
+  }else{localChg(key,status);renderStats();renderTbl();}
+  toast('✅ Status updated to '+status+'!');
+  closeDm();
 }
-function localChg(key, status) { const a=allAppts.find(x=>(x._key||x.id)===key); if(a) a.status=status; }
+function localChg(key,s){const a=appts.find(x=>(x._key||x.id)===key);if(a)a.status=s;}
 
-function viewAppt(key) {
-  const a = allAppts.find(x=>(x._key||x.id)===key);
-  if (!a) return;
-  document.getElementById('dm-title').textContent = 'Appointment #'+(a.id||'—');
-  document.getElementById('dm-body').innerHTML = `
-    <div class="detail-row"><span class="d-label">Reference</span><span class="d-value">#${a.id||'—'}</span></div>
-    <div class="detail-row"><span class="d-label">Owner</span><span class="d-value">${a.owner}</span></div>
-    <div class="detail-row"><span class="d-label">Phone</span><span class="d-value">${a.phone}</span></div>
-    <div class="detail-row"><span class="d-label">Pet</span><span class="d-value">${a.petD||a.petN}</span></div>
-    <div class="detail-row"><span class="d-label">Vet</span><span class="d-value">${a.vet}</span></div>
-    <div class="detail-row"><span class="d-label">Date</span><span class="d-value">${a.date}</span></div>
-    <div class="detail-row"><span class="d-label">Time</span><span class="d-value">${a.time}</span></div>
-    <div class="detail-row"><span class="d-label">Type</span><span class="d-value">${a.type}</span></div>
-    <div class="detail-row"><span class="d-label">Status</span><span class="d-value"><span class="status-badge ${a.status}">${a.status}</span></span></div>
-    <div class="detail-row"><span class="d-label">Symptoms</span><span class="d-value">${a.symp}</span></div>
-    <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;">
-      ${a.status==='pending'?`<button class="act approve" onclick="chgStatus('${key}','confirmed')">✅ Approve</button>`:''}
-      ${a.status==='confirmed'?`<button class="act done" onclick="chgStatus('${key}','completed')">🏁 Mark Done</button>`:''}
-      ${(a.status==='pending'||a.status==='confirmed')?`<button class="act cancel" onclick="chgStatus('${key}','cancelled')">❌ Cancel</button>`:''}
+function viewA(key){
+  const a=appts.find(x=>(x._key||x.id)===key);
+  if(!a)return;
+  document.getElementById('dm-t').textContent='Appointment #'+(a.id||'—');
+  document.getElementById('dm-b').innerHTML=`
+    <div class="dr"><span class="dl">Reference</span><span class="dv">#${a.id||'—'}</span></div>
+    <div class="dr"><span class="dl">Owner</span><span class="dv">${a.owner}</span></div>
+    <div class="dr"><span class="dl">Phone</span><span class="dv">${a.phone}</span></div>
+    <div class="dr"><span class="dl">Pet</span><span class="dv">${a.petD||a.petN}</span></div>
+    <div class="dr"><span class="dl">Vet</span><span class="dv">${a.vet}</span></div>
+    <div class="dr"><span class="dl">Date</span><span class="dv">${a.date}</span></div>
+    <div class="dr"><span class="dl">Time</span><span class="dv">${a.time}</span></div>
+    <div class="dr"><span class="dl">Type</span><span class="dv">${a.type}</span></div>
+    <div class="dr"><span class="dl">Status</span><span class="dv"><span class="sbdg ${a.status}">${a.status}</span></span></div>
+    <div class="dr"><span class="dl">Symptoms</span><span class="dv">${a.symp}</span></div>
+    <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;">
+      ${a.status==='pending'?`<button class="ab ap" onclick="chgSt('${key}','confirmed')">✅ Approve</button>`:''}
+      ${a.status==='confirmed'?`<button class="ab dn" onclick="chgSt('${key}','completed')">🏁 Mark Done</button>`:''}
+      ${(a.status==='pending'||a.status==='confirmed')?`<button class="ab cn" onclick="chgSt('${key}','cancelled')">❌ Cancel</button>`:''}
     </div>`;
-  document.getElementById('detailModal').classList.add('open');
+  document.getElementById('dm').classList.add('open');
 }
-function closeDetailModal() { document.getElementById('detailModal').classList.remove('open'); }
+function closeDm(){document.getElementById('dm').classList.remove('open');}
 
-function exportCSV() {
-  const h = ['ID','Owner','Phone','Pet','Vet','Date','Time','Type','Status','Symptoms'];
-  const rows = allAppts.map(a=>[a.id,a.owner,a.phone,a.petD||a.petN,a.vet,a.date,a.time,a.type,a.status,a.symp].map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(','));
-  const url = URL.createObjectURL(new Blob([[h.join(','),...rows].join('\n')],{type:'text/csv'}));
-  const l = document.createElement('a'); l.href=url; l.download='ocrown_appointments.csv'; l.click();
+function exportCSV(){
+  const h=['ID','Owner','Phone','Pet','Vet','Date','Time','Type','Status','Symptoms'];
+  const rows=appts.map(a=>[a.id,a.owner,a.phone,a.petD||a.petN,a.vet,a.date,a.time,a.type,a.status,a.symp].map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(','));
+  const url=URL.createObjectURL(new Blob([[h.join(','),...rows].join('\n')],{type:'text/csv'}));
+  const l=document.createElement('a');l.href=url;l.download='ocrown_appointments.csv';l.click();
   toast('📥 Appointments exported!');
 }
 
-// ═══════════ TOAST ═══════════
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
-}
-
-// ═══════════ INIT ═══════════
-document.addEventListener('DOMContentLoaded', () => {
-  const d = document.getElementById('b-date');
-  if (d) d.min = new Date().toISOString().split('T')[0];
-});
-</script>
-</body>
-</html>
+// ══ TOAST ══
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.te
